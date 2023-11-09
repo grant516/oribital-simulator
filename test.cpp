@@ -9,6 +9,8 @@
 
 #include "test.h"
 #include "testPosition.h"
+#include <cassert>
+
 
 /*****************************************************************
  * TEST RUNNER
