@@ -141,6 +141,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="acceleration.cpp" />
+    <ClCompile Include="satellite.cpp" />
     <ClCompile Include="sim.cpp" />
     <ClCompile Include="physics.cpp" />
     <ClCompile Include="position.cpp" />
@@ -155,6 +156,7 @@
     <ClInclude Include="acceleration.h" />
     <ClInclude Include="physics.h" />
     <ClInclude Include="position.h" />
+    <ClInclude Include="satellite.h" />
     <ClInclude Include="test.h" />
     <ClInclude Include="testPosition.h" />
     <ClInclude Include="testSatellite.h" />

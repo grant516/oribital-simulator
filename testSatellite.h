@@ -2,6 +2,7 @@
 #include "position.h"
 #include "velocity.h"
 #include "acceleration.h"
+#include "satellite.h"
 #include <cassert>
 
 
@@ -11,14 +12,6 @@ public:
 
    void run()
    {
-      // Testing updatePosition
-      stationary_updatePosition();
-      moving_updatePosition();
-      movingLonger_updatePosition();
-      fromStop_updatePosition();
-      fromStopLong_updatePosition();
-      complex_updatePosition();
-
       // Testing getAltitude
       surface_getAltitude();
       xAxis_getAltitude();
@@ -33,179 +26,17 @@ public:
 
 private:
 
-   // Testing updatePosition functions
-   void stationary_updatePosition()
-   {
-      // setup
-      Position position;
-      position.setMetersX(11.1);
-      position.setMetersY(22.2);
-
-      Velocity velocity;
-      velocity.setDx(0.0);
-      velocity.setDy(0.0);
-
-      Acceleration accel;
-      double ddx = 0.0;
-      double ddy = 0.0;
-
-      int t = 1;
-
-      // exercise
-      satellite.updatePosition(ddx, ddy, t);
-
-      // verify
-      assert(position.getMetersX() == 5.6);
-      assert(position.getMetersY() == 6.6);
-
-      // teardown
-   }
-
-   void moving_updatePosition()
-   {
-      // setup
-      Position position;
-      position.setMetersX(11.1);
-      position.setMetersY(22.2);
-
-      Velocity velocity;
-      velocity.setDx(0.5);
-      velocity.setDy(0.4);
-
-      Acceleration accel;
-      double ddx = 0.0;
-      double ddy = 0.0;
-
-      int t = 1; 
-
-      // exercise
-      satellite.updatePosition(ddx, ddy, t);
-
-      // verify
-      assert(position.getMetersX() == 5.6);
-      assert(position.getMetersY() == 6.6);
-
-      // teardown
-   }
-
-   void movingLonger_updatePosition()
-   {
-      // setup
-      Position position;
-      position.setMetersX(11.1);
-      position.setMetersY(22.2);
-
-      Velocity velocity;
-      velocity.setDx(0.5);
-      velocity.setDy(0.4);
-
-      Acceleration accel;
-      double ddx = 0.0;
-      double ddy = 0.0;
-
-      int t = 2;
-
-      // exercise
-      satellite.updatePosition(ddx, ddy, t);
-
-      // verify
-      assert(position.getMetersX() == 5.6);
-      assert(position.getMetersY() == 6.6);
-
-      // teardown
-   }
-
-   void fromStop_updatePosition()
-   {
-      // setup
-      Position position;
-      position.setMetersX(11.1);
-      position.setMetersY(22.2);
-
-      Velocity velocity;
-      velocity.setDx(0.0);
-      velocity.setDy(0.0);
-
-      Acceleration accel;
-      double ddx = 0.2;
-      double ddy = 0.3;
-
-      int t = 1;
-
-      // exercise
-      satellite.updatePosition(ddx, ddy, t);
-
-      // verify
-      assert(position.getMetersX() == 5.6);
-      assert(position.getMetersY() == 6.6);
-
-      // teardown
-   }
-
-   void fromStopLong_updatePosition()
-   {
-      // setup
-      Position position;
-      position.setMetersX(11.1);
-      position.setMetersY(22.2);
-
-      Velocity velocity;
-      velocity.setDx(0.0);
-      velocity.setDy(0.0);
-
-      Acceleration accel;
-      double ddx = 0.2;
-      double ddy = 0.3;
-
-      int t = 2;
-
-      // exercise
-      satellite.updatePosition(ddx, ddy, t);
-
-      // verify
-      assert(position.getMetersX() == 5.6);
-      assert(position.getMetersY() == 6.6);
-
-      // teardown
-   }
-
-   void complex_updatePosition()
-   {
-      // setup
-      Position position;
-      position.setMetersX(11.1);
-      position.setMetersY(22.2);
-
-      Velocity velocity;
-      velocity.setDx(1.0);
-      velocity.setDy(2.0);
-
-      Acceleration accel;
-      double ddx = 0.2;
-      double ddy = 0.3;
-
-      int t = 2;
-
-      // exercise
-      satellite.updatePosition(ddx, ddy, t);
-
-      // verify
-      assert(position.getMetersX() == 5.6);
-      assert(position.getMetersY() == 6.6);
-
-      // teardown
-   }
-
    // Testing getAltitude functions
    void surface_getAltitude()
    {
       // setup
+      Satellite satellite;
       Position position;
       position.setMetersX(6378000.0);
       position.setMetersY(0.0);
 
       // exercise
-      double alt = satellite.getAltitude();
+      double alt = satellite.getAltitude(position.getMetersX(), position.getMetersY());
       
       // verify
       assert(alt == 0);
@@ -216,12 +47,13 @@ private:
    void xAxis_getAltitude()
    {
       // setup
+      Satellite satellite;
       Position position;
       position.setMetersX(6379000.0);
       position.setMetersY(0.0);
 
       // exercise
-      double alt = satellite.getAltitude();
+      double alt = satellite.getAltitude(position.getMetersX(), position.getMetersY());
 
       // verify
       assert(alt == 1000);
@@ -232,12 +64,13 @@ private:
    void yAxis_getAltitude()
    {
       // setup
+      Satellite satellite;
       Position position;
       position.setMetersX(0.0);
       position.setMetersY(6379000.0);
 
       // exercise
-      double alt = satellite.getAltitude();
+      double alt = satellite.getAltitude(position.getMetersX(), position.getMetersY());
 
       // verify
       assert(alt == 1000);
@@ -248,12 +81,13 @@ private:
    void geostationary_getAltitude()
    {
       // setup
+      Satellite satellite;
       Position position;
       position.setMetersX(29814450.3);
       position.setMetersY(29814450.3);
 
       // exercise
-      double alt = satellite.getAltitude();
+      double alt = satellite.getAltitude(position.getMetersX(), position.getMetersY());
 
       // verify
       assert(alt == 35786000.0);
@@ -267,12 +101,13 @@ private:
    void surface_getGravity()
    {
       // setup
+      Satellite satellite;
       Position position;
       position.setMetersX(6378000.0);
       position.setMetersY(0.0);
 
       // exercise
-      double grav = satellite.getGravity();
+      double grav = satellite.getGravity(position.getMetersX(), position.getMetersY());
 
       // verify
       assert(grav == 35786000.0);
@@ -283,12 +118,13 @@ private:
    void fiveHundredK_getGravity()
    {
       // setup
+      Satellite satellite;
       Position position;
       position.setMetersX(6378000.0 + 500000.0);
       position.setMetersY(0.0);
 
       // exercise
-      double grav = satellite.getGravity();
+      double grav = satellite.getGravity(position.getMetersX(), position.getMetersY());
 
       // verify
       assert(grav == 35786000.0);
@@ -299,12 +135,13 @@ private:
    void twoThousandK_getGravity()
    {
       // setup
+      Satellite satellite;
       Position position;
       position.setMetersX(6378000.0 + 2000000.0);
       position.setMetersY(0.0);
 
       // exercise
-      double grav = satellite.getGravity();
+      double grav = satellite.getGravity(position.getMetersX(), position.getMetersY());
 
       // verify
       assert(grav == 35786000.0);

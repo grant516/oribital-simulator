@@ -13,6 +13,7 @@
 
 #include <iostream> 
 #include <cmath>
+#include <cassert>
 
 class TestPosition;
 class Acceleration;
@@ -49,6 +50,8 @@ public:
    void addMetersY(double dyMeters)      { setMetersY(getMetersY() + dyMeters);     }
    void addPixelsX(double dxPixels)      { setPixelsX(getPixelsX() + dxPixels);     }
    void addPixelsY(double dyPixels)      { setPixelsY(getPixelsY() + dyPixels);     }
+
+   virtual void updatePosition(double dx, double dy, double ddx, double ddy, double t);
 
    // deal with the ratio of meters to pixels
    void setZoom(double metersFromPixels)
@@ -89,3 +92,9 @@ struct PT
 };
 
 
+class DummyPosition : public Position
+{
+public:
+   DummyPosition() : Position() {}
+   void updatePosition(double dx, double dy, double ddx, double ddy, double t) { assert(false); }
+};
