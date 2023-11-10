@@ -1,16 +1,4 @@
-/*************************************************************
- * 1. Name: Grant Shirley, Colby Hale, Bruce Li
- *      Demo
- * 2. Assignment Name:
- *      Lab 07: Orbit Simulator
- * 3. Assignment Description:
- *      Simulate satellites orbiting the earth
- * 4. What was the hardest part? Be as specific as possible.
- *      The hardest part was applying the physics equations to the
- *      satellite correctly and in the correct sequence.
- * 5. How long did it take for you to complete the assignment?
- *      4 hours
- *****************************************************************/
+// Grant Shirley, Colby Hale, Bruce Li
 
 #include <cassert>      // for ASSERT
 #include "uiInteract.h" // for INTERFACE

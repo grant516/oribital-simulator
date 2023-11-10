@@ -95,8 +95,6 @@ private:
       // teardown
    }
 
-   // TODO
-
    // Testing getGravity functions
    void surface_getGravity()
    {

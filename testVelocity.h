@@ -27,9 +27,6 @@ private:
       double ddy = 0.0;
       int t = 0;
 
-      // do we need to pass in dx and dy, or will we pass in the variable from the
-      // class itself
-
       // exercise
       velocity.updateVelocity(ddx, ddy, t);
 
@@ -50,9 +47,6 @@ private:
       double ddy = 0.0;
       int t = 0;
 
-      // do we need to pass in dx and dy, or will we pass in the variable from the
-      // class itself
-
       // exercise
       velocity.updateVelocity(ddx, ddy, t);
 
@@ -71,9 +65,6 @@ private:
       double ddx = 1.2;
       double ddy = 3.4;
       int t = 1;
-
-      // do we need to pass in dx and dy, or will we pass in the variable from the
-      // class itself
       
       // exercise
       velocity.updateVelocity(ddx, ddy, t);
@@ -94,9 +85,6 @@ private:
       double ddy = 3.4;
       int t = 2;
 
-      // do we need to pass in dx and dy, or will we pass in the variable from the
-      // class itself
-
       // exercise
       velocity.updateVelocity(ddx, ddy, t);
 
@@ -116,9 +104,6 @@ private:
       double ddy = 0.2;
       int t = 3;
 
-      // do we need to pass in dx and dy, or will we pass in the variable from the
-      // class itself
-
       // exercise
       velocity.updateVelocity(ddx, ddy, t);
 
@@ -127,6 +112,5 @@ private:
       assert(velocity.getDy() == 6.6);
       // teardown
    }
-
 };
 

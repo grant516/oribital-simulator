@@ -7,6 +7,11 @@
  *    All the unit tests for Position
  ************************************************************************/
 
+/* 
+Test cases for updatePostion added by:
+Grant Shirley, Colby Hale, Bruce Li
+*/
+
 
 #pragma once
 
