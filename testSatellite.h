@@ -6,7 +6,7 @@
 #include <cassert>
 
 
-class testSatellite
+class TestSatellite
 {
 public:
 

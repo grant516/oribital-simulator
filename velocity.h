@@ -1,4 +1,6 @@
 #pragma once
+#include <cassert>
+
 class Velocity
 {
 private:
@@ -7,13 +9,13 @@ private:
    double speed;
 
 public:
-   virtual void setDx(double xSpeed);
-   virtual void setDy(double ySpeed);
-   virtual void updateVelocity(double ddx, double ddy, double t);
+   virtual void setDx(double xSpeed) {}
+   virtual void setDy(double ySpeed) {}
+   virtual void updateVelocity(double ddx, double ddy, double t) {}
 
-   virtual double getDx();
-   virtual double getDy();
-   virtual double getVelocity(double t);
+   virtual double getDx() { return(dx); }
+   virtual double getDy() { return(dy); }
+   virtual double getVelocity(double t) { return(0.0); }
 };
 
 class DummyVelocity : public Velocity

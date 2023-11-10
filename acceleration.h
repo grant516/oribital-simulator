@@ -9,10 +9,10 @@ private:
 
 public:
    Acceleration() {}
-   void assign(Velocity velocity);
-   Velocity getVelocity(double time);
+   void assign(Velocity velocity) {}
+   Velocity getVelocity(double time) {}
    float getDDx() { return ddx; }
    float getDDy() { return ddy; }
-   void setDDx(double ddx);
-   void setDDy(double ddy);
+   void setDDx(double ddx) {}
+   void setDDy(double ddy) {}
 };

@@ -4,7 +4,7 @@
 #include "acceleration.h"
 #include "position.h"
 
-class testVelocity
+class TestVelocity
 {
 public:
    void run()
