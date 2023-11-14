@@ -9,9 +9,9 @@ private:
    double speed;
 
 public:
-   virtual void setDx(double xSpeed) {}
-   virtual void setDy(double ySpeed) {}
-   virtual void updateVelocity(double ddx, double ddy, double t) {}
+   virtual void setDx(double xSpeed) { dx = xSpeed; }
+   virtual void setDy(double ySpeed) { dy = ySpeed; }
+   virtual void updateVelocity(double ddx, double ddy, double t);
 
    virtual double getDx() { return(dx); }
    virtual double getDy() { return(dy); }
