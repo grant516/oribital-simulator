@@ -182,8 +182,8 @@ private:
          accel.getDDx(), accel.getDDy(), t);
 
       // verify
-      assert(position.getMetersX() == 5.6);
-      assert(position.getMetersY() == 6.6);
+      assert(position.getMetersX() == 11.1);
+      assert(position.getMetersY() == 22.2);
 
       // teardown
    }
@@ -210,8 +210,8 @@ private:
          accel.getDDx(), accel.getDDy(), t);
 
       // verify
-      assert(position.getMetersX() == 5.6);
-      assert(position.getMetersY() == 6.6);
+      assert(closeEnough(position.getMetersX(), 11.6, 0.01));
+      assert(closeEnough(position.getMetersY(), 22.6, 0.01));
 
       // teardown
    }
@@ -238,8 +238,8 @@ private:
          accel.getDDx(), accel.getDDy(), t);
 
       // verify
-      assert(position.getMetersX() == 5.6);
-      assert(position.getMetersY() == 6.6);
+      assert(closeEnough(position.getMetersX(), 12.1, 0.01));
+      assert(closeEnough(position.getMetersY(), 23.0, 0.01));
 
       // teardown
    }
@@ -266,8 +266,8 @@ private:
          accel.getDDx(), accel.getDDy(), t);
 
       // verify
-      assert(position.getMetersX() == 5.6);
-      assert(position.getMetersY() == 6.6);
+      assert(closeEnough(position.getMetersX(), 11.2, 0.01));
+      assert(closeEnough(position.getMetersY(), 22.35, 0.01));
 
       // teardown
    }
@@ -294,8 +294,8 @@ private:
          accel.getDDx(), accel.getDDy(), t);
 
       // verify
-      assert(position.getMetersX() == 5.6);
-      assert(position.getMetersY() == 6.6);
+      assert(closeEnough(position.getMetersX(), 11.5, 0.01));
+      assert(closeEnough(position.getMetersY(), 22.8, 0.01));
 
       // teardown
    }
@@ -322,8 +322,8 @@ private:
          accel.getDDx(), accel.getDDy(), t);
 
       // verify
-      assert(position.getMetersX() == 5.6);
-      assert(position.getMetersY() == 6.6);
+      assert(closeEnough(position.getMetersX(), 13.5, 0.01));
+      assert(closeEnough(position.getMetersY(), 26.8, 0.01));
 
       // teardown
    }

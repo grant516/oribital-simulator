@@ -55,7 +55,8 @@ std::istream& operator >> (std::istream& in, Position& pt)
 }
 
 
-void Position::updatePosition(double dx, double dy, double ddx, double ddy, double t) 
+void Position::updatePosition(double dx, double dy, double ddx, double ddy, double t)
 {
-
+   x = x + (dx * t) + ((ddx * (t * t)) / 2);
+   y = y + (dy * t) + ((ddy * (t * t)) / 2);
 }

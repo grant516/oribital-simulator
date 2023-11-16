@@ -4,15 +4,15 @@
 class Acceleration
 {
 private:
-   float ddx;
-   float ddy;
+   double ddx;
+   double ddy;
 
 public:
    Acceleration() {}
    void assign(Velocity velocity) {}
    Velocity getVelocity(double time) {}
-   float getDDx() { return ddx; }
-   float getDDy() { return ddy; }
-   void setDDx(double ddx) {}
-   void setDDy(double ddy) {}
+   double getDDx() { return ddx; }
+   double getDDy() { return ddy; }
+   void setDDx(double accelX) { ddx = accelX; }
+   void setDDy(double accelY) { ddy = accelY; }
 };

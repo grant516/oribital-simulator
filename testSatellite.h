@@ -19,9 +19,9 @@ public:
       geostationary_getAltitude();
 
       // Testing getGravity
-      //surface_getGravity();
-      //fiveHundredK_getGravity();
-      //twoThousandK_getGravity();
+      surface_getGravity();
+      fiveHundredK_getGravity();
+      twoThousandK_getGravity();
    }
 
 private:

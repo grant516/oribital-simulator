@@ -9,5 +9,8 @@ double Satellite::getAltitude(double x, double y)
 
 double Satellite::getGravity(double x, double y)
 {
-   return 0.0;
+   double h = getAltitude(x, y);
+   double gh = gravity * ((earthRadius / (earthRadius + h)) * 
+      (earthRadius / (earthRadius + h)));
+   return gh;
 }

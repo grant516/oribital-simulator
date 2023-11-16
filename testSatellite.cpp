@@ -64,8 +64,7 @@ void TestSatellite::geostationary_getAltitude()
    double alt = satellite.getAltitude(position.getMetersX(), position.getMetersY());
 
    // verify
-   assert(closeEnough(alt, 35786000.0, 0.1));
-   //assert(alt == 35786000.0);
+   assert(closeEnough(alt, 35785999.96895859, 0.001));
 
    // teardown
 }
@@ -83,7 +82,7 @@ void TestSatellite::surface_getGravity()
    double grav = satellite.getGravity(position.getMetersX(), position.getMetersY());
 
    // verify
-   assert(grav == 35786000.0);
+   assert(closeEnough(grav, -9.806, 0.001));
 
    // teardown
 }
@@ -100,7 +99,7 @@ void TestSatellite::fiveHundredK_getGravity()
    double grav = satellite.getGravity(position.getMetersX(), position.getMetersY());
 
    // verify
-   assert(grav == 35786000.0);
+   assert(closeEnough(grav, -8.43, 0.01));
 
    // teardown
 }
@@ -117,7 +116,7 @@ void TestSatellite::twoThousandK_getGravity()
    double grav = satellite.getGravity(position.getMetersX(), position.getMetersY());
 
    // verify
-   assert(grav == 35786000.0);
+   assert(closeEnough(grav, -5.68, 0.01));
 
    // teardown
 }

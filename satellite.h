@@ -6,6 +6,7 @@ class Satellite
 {
 private:
    double earthRadius = 6378000.0;
+   double gravity = -9.80665;
 
 public:
    virtual double getAltitude(double x, double y);

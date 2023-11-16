@@ -20,7 +20,7 @@
  ****************************************************************/
 void testRunner()
 {
-   //TestPosition().run();
+   TestPosition().run();
    TestSatellite().run();
    TestVelocity().run();
    cout << "All test passed!" << endl;
