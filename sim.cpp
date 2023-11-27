@@ -6,16 +6,19 @@
 #include "position.h"      // for POINT
 #include "physics.h"      // for PHYSICS
 #include "test.h"
+#include "satellite.h"
+#include "star.h"
 using namespace std;
 
 /*************************************************************************
- * Demo
- * Test structure to capture the LM that will move around the screen
+ * Sim
+ * Contains the elements needed for an instance of the simulation
  *************************************************************************/
-class Demo
+class Sim
 {
 public:
-   Demo(Position ptUpperRight) :
+   // old stuff starts here
+   Sim(Position ptUpperRight) :
       ptUpperRight(ptUpperRight),
       hubblePhysics(24, 60, 30, -3100.0, 0.0, -9.80665)
    {
@@ -33,9 +36,18 @@ public:
 
    unsigned char phaseStar;
 
-   double const earthRadius = 6378000;
+   double const planetRadius = 6378000;
    double angleShip;
    double angleEarth;
+
+   // old stuff ends here
+
+
+private:
+   // array of Satellites
+   // Satellite satellites[];
+   // stars[];
+   // Earth earth;
 };
 
 /*************************************
@@ -49,7 +61,7 @@ void callBack(const Interface* pUI, void* p)
 {
    // the first step is to cast the void pointer into a game object. This
    // is the first step of every single callback function in OpenGL. 
-   Demo* pDemo = (Demo*)p;
+   Sim* pSim = (Sim*)p;
 
    //
    // perform all the game logic
@@ -58,33 +70,33 @@ void callBack(const Interface* pUI, void* p)
    //Physics
    // calculate earth's gravity pull for both ddx and ddy
       // get the height away from the earth
-   double height = pDemo->hubblePhysics.htAboveEarth( // Maybe store in physics as class variable
-      pDemo->ptHubble.getMetersX(),
-      pDemo->ptHubble.getMetersY(), 
-      pDemo->earthRadius);
+   double height = pSim->hubblePhysics.htAboveEarth( // Maybe store in physics as class variable
+      pSim->ptHubble.getMetersX(),
+      pSim->ptHubble.getMetersY(), 
+      pSim->planetRadius);
       // gravity equation
    double currentGravity = 
-      pDemo->hubblePhysics.gravityEquation(pDemo->earthRadius, height);
+      pSim->hubblePhysics.gravityEquation(pSim->planetRadius, height);
       // Get radians angle
-   double radians = pDemo->hubblePhysics.dirGravityPull(0.0, 0.0,
-      pDemo->ptHubble.getMetersX(), pDemo->ptHubble.getMetersY());
+   double radians = pSim->hubblePhysics.dirGravityPull(0.0, 0.0,
+      pSim->ptHubble.getMetersX(), pSim->ptHubble.getMetersY());
 
-   pDemo->hubblePhysics.radiansToDegrees(radians);
-   pDemo->hubblePhysics.hrzCompAccel(currentGravity);
-   pDemo->hubblePhysics.vertCompAccel(currentGravity);
+   pSim->hubblePhysics.radiansToDegrees(radians);
+   pSim->hubblePhysics.hrzCompAccel(currentGravity);
+   pSim->hubblePhysics.vertCompAccel(currentGravity);
 
-   pDemo->hubblePhysics.hrzVelWConstA();
-   pDemo->hubblePhysics.vertVelWConstA();
+   pSim->hubblePhysics.hrzVelWConstA();
+   pSim->hubblePhysics.vertVelWConstA();
 
-   pDemo->ptHubble.setMetersX(pDemo->hubblePhysics.hrzDistFormula(pDemo->ptHubble.getMetersX()));
-   pDemo->ptHubble.setMetersY(pDemo->hubblePhysics.vertDistFormula(pDemo->ptHubble.getMetersY()));
+   pSim->ptHubble.setMetersX(pSim->hubblePhysics.hrzDistFormula(pSim->ptHubble.getMetersX()));
+   pSim->ptHubble.setMetersY(pSim->hubblePhysics.vertDistFormula(pSim->ptHubble.getMetersY()));
 
    double pi = 2 * asin(1.0);
 
    // rotate the earth
-   pDemo->angleEarth -= (2*pi)/1800;
-   pDemo->angleShip += 0.02;
-   pDemo->phaseStar++;
+   pSim->angleEarth -= (2*pi)/1800;
+   pSim->angleShip += 0.02;
+   pSim->phaseStar++;
 
    //
    // draw everything
@@ -94,11 +106,11 @@ void callBack(const Interface* pUI, void* p)
    ogstream gout(pt);
 
    // draw satellites
-   gout.drawHubble    (pDemo->ptHubble,     pDemo->angleShip);
+   gout.drawHubble    (pSim->ptHubble,     pSim->angleShip);
 
    // draw the earth
    pt.setMeters(0.0, 0.0);
-   gout.drawEarth(pt, pDemo->angleEarth);
+   gout.drawEarth(pt, pSim->angleEarth);
 }
 
 double Position::metersFromPixels = 40.0;
@@ -126,14 +138,14 @@ int main(int argc, char** argv)
    ptUpperRight.setPixelsX(1000.0);
    ptUpperRight.setPixelsY(1000.0);
    Interface ui(0, NULL,
-      "Demo",   /* name on the window */
+      "Sim",   /* name on the window */
       ptUpperRight);
 
-   // Initialize the demo
-   Demo demo(ptUpperRight);
+   // Initialize the Sim
+   Sim sim(ptUpperRight);
 
    // set everything into action
-   ui.run(callBack, &demo);
+   ui.run(callBack, &sim);
 
 
    return 0;

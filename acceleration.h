@@ -8,7 +8,7 @@ private:
    double ddy;
 
 public:
-   Acceleration() {}
+   Acceleration() { ddx = 0; ddy = 0; }
    void assign(Velocity velocity) {}
    Velocity getVelocity(double time) {}
    double getDDx() { return ddx; }

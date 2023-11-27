@@ -141,10 +141,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="acceleration.cpp" />
+    <ClCompile Include="direction.cpp" />
+    <ClCompile Include="projectile.cpp" />
     <ClCompile Include="satellite.cpp" />
     <ClCompile Include="sim.cpp" />
     <ClCompile Include="physics.cpp" />
     <ClCompile Include="position.cpp" />
+    <ClCompile Include="star.cpp" />
     <ClCompile Include="test.cpp" />
     <ClCompile Include="testSatellite.cpp" />
     <ClCompile Include="testVelocity.cpp" />
@@ -154,9 +157,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="acceleration.h" />
+    <ClInclude Include="direction.h" />
     <ClInclude Include="physics.h" />
     <ClInclude Include="position.h" />
+    <ClInclude Include="projectile.h" />
     <ClInclude Include="satellite.h" />
+    <ClInclude Include="star.h" />
     <ClInclude Include="test.h" />
     <ClInclude Include="testPosition.h" />
     <ClInclude Include="testSatellite.h" />
