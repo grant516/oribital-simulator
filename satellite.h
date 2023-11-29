@@ -21,14 +21,12 @@ private:
 
 public:
    Satellite() {}
-   double getRadius() { return radius; }
-   bool isDead() { return dead; }
-   Position getPosition() { return position; }
-   void kill();
-   void draw();
-   //void destroy(satellites); // what the heck is this?
-   void move(double time);
-   void input(Interface interface);
+   virtual double getRadius() { return radius; }
+   virtual bool isDead() { return dead; }
+   virtual Position getPosition() { return position; }
+   virtual void kill();
+   virtual void draw();
+   virtual void move(double time);
    virtual double getAltitude(double x, double y);
    virtual double getGravity(double x, double y);
 };
