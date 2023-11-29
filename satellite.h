@@ -8,7 +8,7 @@
 
 class Satellite
 {
-private:
+protected:
    Velocity velocity;
    Position position;
    Direction direction;
