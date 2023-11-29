@@ -8,6 +8,7 @@
 #include "test.h"
 #include "satellite.h"
 #include "star.h"
+#include "earth.h"
 using namespace std;
 
 /*************************************************************************
@@ -26,7 +27,6 @@ public:
       ptHubble.setMetersY(42164000.0);
       
       angleShip = 0.0;
-      angleEarth = 0.0;
       phaseStar = 0;
    }
 
@@ -38,16 +38,15 @@ public:
 
    double const planetRadius = 6378000;
    double angleShip;
-   double angleEarth;
 
    // old stuff ends here
-
+   Earth earth;
 
 private:
    // array of Satellites
    // Satellite satellites[];
    // stars[];
-   // Earth earth;
+   
 };
 
 /*************************************
@@ -94,7 +93,7 @@ void callBack(const Interface* pUI, void* p)
    double pi = 2 * asin(1.0);
 
    // rotate the earth
-   pSim->angleEarth -= (2*pi)/1800;
+   pSim->earth.rotate();
    pSim->angleShip += 0.02;
    pSim->phaseStar++;
 
@@ -106,11 +105,10 @@ void callBack(const Interface* pUI, void* p)
    ogstream gout(pt);
 
    // draw satellites
-   gout.drawHubble    (pSim->ptHubble,     pSim->angleShip);
+   gout.drawHubble(pSim->ptHubble, pSim->angleShip);
 
    // draw the earth
-   pt.setMeters(0.0, 0.0);
-   gout.drawEarth(pt, pSim->angleEarth);
+   pSim->earth.draw(gout);
 }
 
 double Position::metersFromPixels = 40.0;
