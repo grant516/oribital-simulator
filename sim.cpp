@@ -31,15 +31,21 @@ public:
       phaseStar = 0;
 
       Direction d;
-      Position p(42164000.0, 42164000.0);
+      Position p(0.0, 42164000.0);
       gps.setDirection(d);
       gps.setPosition(p);
+
+      Direction d2;
+      Position p2(42164000.0, 0.0);
+      hubble.setDirection(d2);
+      hubble.setPosition(p2);
    }
 
    Physics hubblePhysics;
    Position ptHubble;
    Position ptUpperRight;
    GPS gps;
+   Hubble hubble;
 
    unsigned char phaseStar;
 
@@ -115,6 +121,7 @@ void callBack(const Interface* pUI, void* p)
    gout.drawHubble(pSim->ptHubble, pSim->angleShip);
 
    pSim->gps.draw(gout);
+   pSim->hubble.draw(gout);
 
    // draw the earth
    pSim->earth.draw(gout);
