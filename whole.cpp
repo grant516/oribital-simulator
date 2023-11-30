@@ -2,7 +2,7 @@
 
 // GPS Functions
 
-void GPS::draw(ogstream gout)
+void GPS::draw(ogstream& gout)
 {
    gout.drawGPS(position, direction.getRadians());
 }

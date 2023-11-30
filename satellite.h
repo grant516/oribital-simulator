@@ -21,6 +21,12 @@ protected:
 
 public:
    Satellite() {}
+   Satellite(Position p, Direction d) 
+   {
+      position = p;
+      direction = d;
+   }
+
    virtual double getRadius() { return radius; }
    virtual bool isDead() { return dead; }
    virtual Position getPosition() { return position; }
@@ -29,6 +35,8 @@ public:
    virtual void move(double time);
    virtual double getAltitude(double x, double y);
    virtual double getGravity(double x, double y);
+   virtual void setPosition(Position p) { position = p; }
+   virtual void setDirection(Direction d) { direction = d; }
 };
 
 

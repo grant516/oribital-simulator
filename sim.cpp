@@ -9,6 +9,7 @@
 #include "satellite.h"
 #include "star.h"
 #include "earth.h"
+#include "whole.h"
 using namespace std;
 
 /*************************************************************************
@@ -28,11 +29,17 @@ public:
       
       angleShip = 0.0;
       phaseStar = 0;
+
+      Direction d;
+      Position p(42164000.0, 42164000.0);
+      gps.setDirection(d);
+      gps.setPosition(p);
    }
 
    Physics hubblePhysics;
    Position ptHubble;
    Position ptUpperRight;
+   GPS gps;
 
    unsigned char phaseStar;
 
@@ -106,6 +113,8 @@ void callBack(const Interface* pUI, void* p)
 
    // draw satellites
    gout.drawHubble(pSim->ptHubble, pSim->angleShip);
+
+   pSim->gps.draw(gout);
 
    // draw the earth
    pSim->earth.draw(gout);

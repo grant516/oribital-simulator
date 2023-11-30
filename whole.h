@@ -12,5 +12,5 @@ public:
 class GPS : public Whole
 {
 public:
-   void draw(ogstream gout);
+   void draw(ogstream& gout);
 };
