@@ -22,23 +22,15 @@ public:
    // old stuff starts here
    Sim(Position ptUpperRight) :
       ptUpperRight(ptUpperRight),
-      hubblePhysics(24, 60, 30, -3100.0, 0.0, -9.80665)
+      hubblePhysics(24, 60, 30, -3100.0, 0.0, -9.80665),
+      gps(Position(0.0, 42164000.0), Direction(), Velocity()),
+      hubble(Position(42164000.0, 0.0), Direction(), Velocity())
    {
       ptHubble.setMetersX(0.0);
       ptHubble.setMetersY(42164000.0);
       
       angleShip = 0.0;
       phaseStar = 0;
-
-      Direction d;
-      Position p(0.0, 42164000.0);
-      gps.setDirection(d);
-      gps.setPosition(p);
-
-      Direction d2;
-      Position p2(42164000.0, 0.0);
-      hubble.setDirection(d2);
-      hubble.setPosition(p2);
    }
 
    Physics hubblePhysics;
