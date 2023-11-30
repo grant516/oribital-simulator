@@ -23,8 +23,17 @@ public:
    Sim(Position ptUpperRight) :
       ptUpperRight(ptUpperRight),
       hubblePhysics(24, 60, 30, -3100.0, 0.0, -9.80665),
-      gps(Position(0.0, 42164000.0), Direction(), Velocity()),
-      hubble(Position(42164000.0, 0.0), Direction(), Velocity())
+      sputnik(Position(-36515095.13, 21082000.0), Direction(), Velocity(2050.0, 2684.68)),
+      gps0(Position(0.0, 26560000.0), Direction(), Velocity(-3880.0, 0.0)),
+      gps1(Position(23001634.72, 13280000.0), Direction(), Velocity(-1940.00, 3360.18)),
+      gps2(Position(23001634.72, -13280000.0), Direction(), Velocity(1940.00, 3360.18)),
+      gps3(Position(0.0, -26560000.0), Direction(), Velocity(3880.0, 0.0)),
+      gps4(Position(-23001634.72, -13280000.0), Direction(), Velocity(1940.00, -3360.18)),
+      gps5(Position(-23001634.72, 13280000.0), Direction(), Velocity(-1940.00, -3360.18)),
+      hubble(Position(0.0, -42164000.0), Direction(), Velocity(3100.0, 0.0)),
+      dragon(Position(0.0, 8000000.0), Direction(), Velocity(-7900.0, 0.0)),
+      starlink(Position(0.0, -13020000.0), Direction(), Velocity(5800.0, 0.0)),
+      ship(Position(-45000000.0, 45000000.0), Direction(), Velocity(0.0, -2000.0)) // Document says position should start at (-450px, 450px), but I guessed in setting it by meters. How many meters is 450px?
    {
       ptHubble.setMetersX(0.0);
       ptHubble.setMetersY(42164000.0);
@@ -36,8 +45,19 @@ public:
    Physics hubblePhysics;
    Position ptHubble;
    Position ptUpperRight;
-   GPS gps;
+
+   Sputnik sputnik;
+   GPS gps0;
+   GPS gps1;
+   GPS gps2;
+   GPS gps3;
+   GPS gps4;
+   GPS gps5;
    Hubble hubble;
+   Dragon dragon;
+   Starlink starlink;
+   Ship ship;
+
 
    unsigned char phaseStar;
 
@@ -110,10 +130,23 @@ void callBack(const Interface* pUI, void* p)
    ogstream gout(pt);
 
    // draw satellites
-   gout.drawHubble(pSim->ptHubble, pSim->angleShip);
+   gout.drawHubble(pSim->ptHubble, pSim->angleShip); // to be replaced with OOP
 
-   pSim->gps.draw(gout);
+
+   // draw could be handled by a loop later after we have them in a list
+
+   // draw satellites
+   pSim->sputnik.draw(gout);
+   pSim->gps0.draw(gout);
+   pSim->gps1.draw(gout);
+   pSim->gps2.draw(gout);
+   pSim->gps3.draw(gout);
+   pSim->gps4.draw(gout);
+   pSim->gps5.draw(gout);
    pSim->hubble.draw(gout);
+   pSim->dragon.draw(gout);
+   pSim->starlink.draw(gout);
+   pSim->ship.draw(gout);
 
    // draw the earth
    pSim->earth.draw(gout);
