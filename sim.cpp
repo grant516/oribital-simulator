@@ -114,17 +114,9 @@ void callBack(const Interface* pUI, void* p)
 
    //Physics
    double time = pSim->hubblePhysics.getTimeFrame();
-   pSim->hubble.move(time, pSim->earth.getRadius(), pSim->earth.getGravity());
-   pSim->sputnik.move(time, pSim->earth.getRadius(), pSim->earth.getGravity());
-   pSim->gps0.move(time, pSim->earth.getRadius(), pSim->earth.getGravity());
-   pSim->gps1.move(time, pSim->earth.getRadius(), pSim->earth.getGravity());
-   pSim->gps2.move(time, pSim->earth.getRadius(), pSim->earth.getGravity());
-   pSim->gps3.move(time, pSim->earth.getRadius(), pSim->earth.getGravity());
-   pSim->gps4.move(time, pSim->earth.getRadius(), pSim->earth.getGravity());
-   pSim->gps5.move(time, pSim->earth.getRadius(), pSim->earth.getGravity());
-   pSim->dragon.move(time, pSim->earth.getRadius(), pSim->earth.getGravity());
-   pSim->starlink.move(time, pSim->earth.getRadius(), pSim->earth.getGravity());
-   pSim->ship.move(time, pSim->earth.getRadius(), pSim->earth.getGravity());
+
+   for (auto sat : pSim->satellites)
+      sat->move(time, pSim->earth.getRadius(), pSim->earth.getGravity());
 
    double pi = 2 * asin(1.0);
 
@@ -145,17 +137,9 @@ void callBack(const Interface* pUI, void* p)
    // draw could be handled by a loop later after we have them in a list
 
    // draw satellites
-   pSim->sputnik.draw(gout);
-   pSim->gps0.draw(gout);
-   pSim->gps1.draw(gout);
-   pSim->gps2.draw(gout);
-   pSim->gps3.draw(gout);
-   pSim->gps4.draw(gout);
-   pSim->gps5.draw(gout);
-   pSim->hubble.draw(gout);
-   pSim->dragon.draw(gout);
-   pSim->starlink.draw(gout);
-   pSim->ship.draw(gout);
+   for (auto sat : pSim->satellites)
+      sat->draw(gout);
+
 
    // draw the earth
    pSim->earth.draw(gout);

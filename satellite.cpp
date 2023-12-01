@@ -6,7 +6,7 @@ void Satellite::kill()
    dead = true;
 }
 
-void Satellite::draw()
+void Satellite::draw(ogstream &gout)
 {
 
 }

@@ -33,7 +33,7 @@ public:
    virtual bool isDead() { return dead; }
    virtual Position getPosition() { return position; }
    virtual void kill();
-   virtual void draw();
+   virtual void draw(ogstream &gout);
    virtual void move(double time, double planetRadius, double planetGravity);
    virtual double getAltitude(double x, double y);
    virtual double getGravity(double x, double y);
