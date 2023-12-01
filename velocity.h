@@ -9,6 +9,7 @@ private:
 
 public:
    Velocity() { dx = 0; dy = 0; };
+   Velocity(double dx, double dy) { this->dx = dx; this->dy = dy; }
 
    void assign(Velocity velocity) {}
 
