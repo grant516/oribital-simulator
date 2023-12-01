@@ -2,13 +2,22 @@
 #include "satellite.h"
 #include "uiDraw.h"
 
+
+/*************************************************************************
+ * Whole
+ * This class is the base class for all whole satellites. It inherits from the Satellite class.
+ * It is used to organize all whole satellites together.
+ *************************************************************************/
 class Whole : public Satellite
 {
 public:
    Whole() {};
 };
 
-// Sputnik Class
+/*************************************************************************
+ * Sputnik
+ * First satellite ever launched into space.
+ *************************************************************************/
 class Sputnik : public Whole
 {
 public:
@@ -25,7 +34,10 @@ public:
 };
 
 
-// GPS Class
+/*************************************************************************
+ * GPS
+ * Global Positioning System. We'd be lost without it.
+ *************************************************************************/
 class GPS : public Whole
 {
 public:
@@ -42,7 +54,10 @@ public:
 };
 
 
-// Hubble Class
+/*************************************************************************
+ * Hubble
+ * Hubble Space Telescope. Takes cool pictures.
+ *************************************************************************/
 class Hubble : public Whole
 {
 public:
@@ -58,7 +73,10 @@ public:
 };
 
 
-// Dragon Class
+/*************************************************************************
+ * Dragon
+ * Crew Dragon Spacecraft. Takes people to space (probably shouldn't shoot it down).
+ *************************************************************************/
 class Dragon : public Whole
 {
 public:
@@ -74,7 +92,10 @@ public:
 };
 
 
-// Starlink Class
+/*************************************************************************
+ * Starlink
+ * Thank you Elon Musk, very cool!
+ *************************************************************************/
 class Starlink : public Whole
 {
 public:
@@ -90,7 +111,10 @@ public:
 };
 
 
-// Ship Class (Dreamchaser)
+/*************************************************************************
+ * Ship
+ * Also known as the Starchaser. Controlled by the player.
+ *************************************************************************/
 class Ship : public Whole
 {
 public:
