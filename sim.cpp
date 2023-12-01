@@ -22,12 +22,12 @@ public:
    // old stuff starts here
    Sim(Position ptUpperRight) :
       ptUpperRight(ptUpperRight),
-      hubblePhysics(24, 60, 30, -3100.0, 0.0, -9.80665),
+      hubblePhysics(24, 60, 30, 3100.0, 0.0, -9.80665),
       gps(Position(0.0, 42164000.0), Direction(), Velocity()),
-      hubble(Position(42164000.0, 0.0), Direction(), Velocity())
+      hubble(Position(0.0, -42164000.0), Direction(), Velocity(3100, 0))
    {
       ptHubble.setMetersX(0.0);
-      ptHubble.setMetersY(42164000.0);
+      ptHubble.setMetersY(-42164000.0);
       
       angleShip = 0.0;
       phaseStar = 0;
@@ -72,28 +72,8 @@ void callBack(const Interface* pUI, void* p)
    //
 
    //Physics
-   // calculate earth's gravity pull for both ddx and ddy
-      // get the height away from the earth
-   double height = pSim->hubblePhysics.htAboveEarth( // Maybe store in physics as class variable
-      pSim->ptHubble.getMetersX(),
-      pSim->ptHubble.getMetersY(), 
-      pSim->planetRadius);
-      // gravity equation
-   double currentGravity = 
-      pSim->hubblePhysics.gravityEquation(pSim->planetRadius, height);
-      // Get radians angle
-   double radians = pSim->hubblePhysics.dirGravityPull(0.0, 0.0,
-      pSim->ptHubble.getMetersX(), pSim->ptHubble.getMetersY());
-
-   pSim->hubblePhysics.radiansToDegrees(radians);
-   pSim->hubblePhysics.hrzCompAccel(currentGravity);
-   pSim->hubblePhysics.vertCompAccel(currentGravity);
-
-   pSim->hubblePhysics.hrzVelWConstA();
-   pSim->hubblePhysics.vertVelWConstA();
-
-   pSim->ptHubble.setMetersX(pSim->hubblePhysics.hrzDistFormula(pSim->ptHubble.getMetersX()));
-   pSim->ptHubble.setMetersY(pSim->hubblePhysics.vertDistFormula(pSim->ptHubble.getMetersY()));
+   double time = pSim->hubblePhysics.getTimeFrame();
+   pSim->hubble.move(time, pSim->earth.getRadius(), pSim->earth.getGravity());
 
    double pi = 2 * asin(1.0);
 
@@ -110,7 +90,6 @@ void callBack(const Interface* pUI, void* p)
    ogstream gout(pt);
 
    // draw satellites
-   gout.drawHubble(pSim->ptHubble, pSim->angleShip);
 
    pSim->gps.draw(gout);
    pSim->hubble.draw(gout);

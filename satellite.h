@@ -5,6 +5,7 @@
 #include "direction.h"
 #include "uiDraw.h"
 #include "uiInteract.h"
+#include "acceleration.h"
 
 class Satellite
 {
@@ -12,6 +13,7 @@ protected:
    Velocity velocity;
    Position position;
    Direction direction;
+   Acceleration acceleration;
    double angularVelocity;
    bool dead = false;
    double radius;
@@ -32,11 +34,17 @@ public:
    virtual Position getPosition() { return position; }
    virtual void kill();
    virtual void draw();
-   virtual void move(double time);
+   virtual void move(double time, double planetRadius, double planetGravity);
    virtual double getAltitude(double x, double y);
    virtual double getGravity(double x, double y);
    virtual void setPosition(Position p) { position = p; }
    virtual void setDirection(Direction d) { direction = d; }
+
+private:
+   virtual double getHtAbovePlanet(double planetRadius);
+   virtual void hrzDistFormula(double timeFrame);
+   virtual void vertDistFormula(double timeFrame);
+   virtual double dirGravityPull(double xe, double ye);
 };
 
 
