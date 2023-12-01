@@ -22,6 +22,7 @@ public:
    // old stuff starts here
    Sim(Position ptUpperRight) :
       ptUpperRight(ptUpperRight),
+  
       hubblePhysics(24, 60, 30, -3100.0, 0.0, -9.80665),
       sputnik(Position(-36515095.13, 21082000.0), Direction(), Velocity(2050.0, 2684.68)),
       gps0(Position(0.0, 26560000.0), Direction(), Velocity(-3880.0, 0.0)),
@@ -34,9 +35,10 @@ public:
       dragon(Position(0.0, 8000000.0), Direction(), Velocity(-7900.0, 0.0)),
       starlink(Position(0.0, -13020000.0), Direction(), Velocity(5800.0, 0.0)),
       ship(Position(-45000000.0, 45000000.0), Direction(), Velocity(0.0, -2000.0)) // Document says position should start at (-450px, 450px), but I guessed in setting it by meters. How many meters is 450px?
+
    {
       ptHubble.setMetersX(0.0);
-      ptHubble.setMetersY(42164000.0);
+      ptHubble.setMetersY(-42164000.0);
       
       angleShip = 0.0;
       phaseStar = 0;
@@ -92,28 +94,8 @@ void callBack(const Interface* pUI, void* p)
    //
 
    //Physics
-   // calculate earth's gravity pull for both ddx and ddy
-      // get the height away from the earth
-   double height = pSim->hubblePhysics.htAboveEarth( // Maybe store in physics as class variable
-      pSim->ptHubble.getMetersX(),
-      pSim->ptHubble.getMetersY(), 
-      pSim->planetRadius);
-      // gravity equation
-   double currentGravity = 
-      pSim->hubblePhysics.gravityEquation(pSim->planetRadius, height);
-      // Get radians angle
-   double radians = pSim->hubblePhysics.dirGravityPull(0.0, 0.0,
-      pSim->ptHubble.getMetersX(), pSim->ptHubble.getMetersY());
-
-   pSim->hubblePhysics.radiansToDegrees(radians);
-   pSim->hubblePhysics.hrzCompAccel(currentGravity);
-   pSim->hubblePhysics.vertCompAccel(currentGravity);
-
-   pSim->hubblePhysics.hrzVelWConstA();
-   pSim->hubblePhysics.vertVelWConstA();
-
-   pSim->ptHubble.setMetersX(pSim->hubblePhysics.hrzDistFormula(pSim->ptHubble.getMetersX()));
-   pSim->ptHubble.setMetersY(pSim->hubblePhysics.vertDistFormula(pSim->ptHubble.getMetersY()));
+   double time = pSim->hubblePhysics.getTimeFrame();
+   pSim->hubble.move(time, pSim->earth.getRadius(), pSim->earth.getGravity());
 
    double pi = 2 * asin(1.0);
 
@@ -130,8 +112,6 @@ void callBack(const Interface* pUI, void* p)
    ogstream gout(pt);
 
    // draw satellites
-   gout.drawHubble(pSim->ptHubble, pSim->angleShip); // to be replaced with OOP
-
 
    // draw could be handled by a loop later after we have them in a list
 

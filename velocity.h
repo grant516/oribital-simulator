@@ -11,6 +11,12 @@ public:
    Velocity() { dx = 0; dy = 0; };
    Velocity(double dx, double dy) { this->dx = dx; this->dy = dy; }
 
+   Velocity(double vx, double vy) 
+   { 
+      dx = vx; 
+      dy = vy; 
+   }
+
    void assign(Velocity velocity) {}
 
    virtual double getDx() { return(dx); }
@@ -28,6 +34,9 @@ public:
    void addDy(double dyAdded) { dy += dyAdded; }
    //void add(Velocity velocity) {} // TODO: implement this, or is it the same as updateVelocity?
    virtual void updateVelocity(double ddx, double ddy, double t);
+
+   void hrzVelWConstA(double ddx, double time);
+   void vertVelWConstA(double ddy, double time);
 };
 
 class DummyVelocity : public Velocity
