@@ -96,6 +96,16 @@ void callBack(const Interface* pUI, void* p)
    //Physics
    double time = pSim->hubblePhysics.getTimeFrame();
    pSim->hubble.move(time, pSim->earth.getRadius(), pSim->earth.getGravity());
+   pSim->sputnik.move(time, pSim->earth.getRadius(), pSim->earth.getGravity());
+   pSim->gps0.move(time, pSim->earth.getRadius(), pSim->earth.getGravity());
+   pSim->gps1.move(time, pSim->earth.getRadius(), pSim->earth.getGravity());
+   pSim->gps2.move(time, pSim->earth.getRadius(), pSim->earth.getGravity());
+   pSim->gps3.move(time, pSim->earth.getRadius(), pSim->earth.getGravity());
+   pSim->gps4.move(time, pSim->earth.getRadius(), pSim->earth.getGravity());
+   pSim->gps5.move(time, pSim->earth.getRadius(), pSim->earth.getGravity());
+   pSim->dragon.move(time, pSim->earth.getRadius(), pSim->earth.getGravity());
+   pSim->starlink.move(time, pSim->earth.getRadius(), pSim->earth.getGravity());
+   pSim->ship.move(time, pSim->earth.getRadius(), pSim->earth.getGravity());
 
    double pi = 2 * asin(1.0);
 
