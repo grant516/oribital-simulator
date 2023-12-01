@@ -7,7 +7,7 @@
 class Earth
 {
 private:
-   Position position; // default position should be (0.0, 0.0)
+   Position position; // should be the default position, which is (0.0, 0.0)
    double planetRadius = 6378000.0;
    double gravity = -9.80665;
    double angle = 0.0;
@@ -16,7 +16,7 @@ private:
 public:
    double getRadius() { return planetRadius; }
    double getGravity() { return gravity; }
-   void rotate() { angle -= angularVelocity; }
+   void rotate() { angle -= angularVelocity; } // to be called once per frame
    void draw(ogstream &gout) { gout.drawEarth(position, angle); }
 };
 
