@@ -1,6 +1,7 @@
 // Grant Shirley, Colby Hale, Bruce Li
 
 #include <cassert>      // for ASSERT
+#include <list>        // for LIST
 #include "uiInteract.h" // for INTERFACE
 #include "uiDraw.h"     // for RANDOM and DRAW*
 #include "position.h"      // for POINT
@@ -61,6 +62,7 @@ public:
    Ship ship;
 
 
+
    unsigned char phaseStar;
 
    double const planetRadius = 6378000;
@@ -68,6 +70,23 @@ public:
 
    // old stuff ends here
    Earth earth;
+
+   // List of satellites
+   list<Satellite*> satellites = 
+   {
+      &sputnik,
+      &gps0,
+      &gps1,
+      &gps2,
+      &gps3,
+      &gps4,
+      &gps5,
+      &hubble,
+      &dragon,
+      &starlink,
+      &ship
+   };
+
 
 private:
    // array of Satellites
