@@ -76,6 +76,7 @@ public:
    // List of satellites
    list<Satellite*> satellites = 
    {
+      &ship,
       &sputnik,
       &gps0,
       &gps1,
@@ -85,8 +86,7 @@ public:
       &gps5,
       &hubble,
       &dragon,
-      &starlink,
-      &ship,
+      &starlink
    };
 
 
@@ -148,7 +148,15 @@ void callBack(const Interface* pUI, void* p)
    //for (auto sat1 : pSim->satellites)
    for (auto sat1 = pSim->satellites.begin(); sat1 != pSim->satellites.end();)
    {
-      //for (auto sat2 : pSim->satellites)
+      Position sat1Pos = (*sat1)->getPosition();
+      Position earthPos = pSim->earth.getPosition();
+      double distance = sqrt(
+         ((earthPos.getPixelsX() - sat1Pos.getPixelsX()) *
+            (earthPos.getPixelsX() - sat1Pos.getPixelsX())) +
+         ((earthPos.getPixelsY() - sat1Pos.getPixelsY()) *
+            (earthPos.getPixelsY() - sat1Pos.getPixelsY()))
+      );
+
       for (auto sat2 = pSim->satellites.begin(); sat2 != pSim->satellites.end();)
       {
          if (sat1 != sat2)
@@ -177,14 +185,6 @@ void callBack(const Interface* pUI, void* p)
             ++sat2;
          }
       }
-      Position sat1Pos = (*sat1)->getPosition();
-      Position earthPos = pSim->earth.getPosition();
-      double distance = sqrt(
-         ((earthPos.getPixelsX() - sat1Pos.getPixelsX()) *
-            (earthPos.getPixelsX() - sat1Pos.getPixelsX())) +
-         ((earthPos.getPixelsY() - sat1Pos.getPixelsY()) *
-            (earthPos.getPixelsY() - sat1Pos.getPixelsY()))
-      );
 
       if (distance <= ((*sat1)->getRadius() + pSim->earth.getRadiusPixels()))
       {
