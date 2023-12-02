@@ -39,6 +39,8 @@ public:
    virtual void moveFacingDirection();
    virtual double getAltitude(double x, double y);
    virtual double getGravity(double x, double y);
+   virtual Direction getMovementDirection() { return movementDirection; }
+   virtual Velocity getVelocity() { return velocity; }
    virtual void setPosition(Position p) { position = p; }
    virtual void setMovementDirection(Direction d) { movementDirection = d; }
 

@@ -11,6 +11,7 @@
 #include "star.h"
 #include "earth.h"
 #include "whole.h"
+#include "projectile.h"
 #include <math.h>
 using namespace std;
 
@@ -134,13 +135,23 @@ void callBack(const Interface* pUI, void* p)
       pSim->ship.fireLeftThruster();
    }
 
+   if (pUI->isSpace())
+   {
+      Projectile p(pSim->ship.getVelocity(), 
+         pSim->ship.getMovementDirection(),
+         pSim->ship.getPosition());
+      pSim->satellites.emplace_back(&p);
+   }
+
    //Physics
    double time = pSim->hubblePhysics.getTimeFrame();
 
+   int x = 0;
    for (auto sat : pSim->satellites)
    {
       sat->movePosition(time, pSim->earth.getRadiusMeters(), pSim->earth.getGravity());
       sat->moveFacingDirection();
+      x++;
    }
 
 
@@ -148,6 +159,7 @@ void callBack(const Interface* pUI, void* p)
    //for (auto sat1 : pSim->satellites)
    for (auto sat1 = pSim->satellites.begin(); sat1 != pSim->satellites.end();)
    {
+      sat1;
       Position sat1Pos = (*sat1)->getPosition();
       Position earthPos = pSim->earth.getPosition();
       double distance = sqrt(
