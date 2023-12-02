@@ -155,12 +155,6 @@ void callBack(const Interface* pUI, void* p)
          {
             Position sat1Pos = (*sat1)->getPosition();
             Position sat2Pos = (*sat2)->getPosition();
-            /*double distance = sqrt(
-               ((sat2Pos.getMetersX() - sat1Pos.getMetersX()) *
-                  (sat2Pos.getMetersX() - sat1Pos.getMetersX())) +
-               ((sat2Pos.getMetersY() - sat1Pos.getMetersY()) *
-                  (sat2Pos.getMetersY() - sat1Pos.getMetersY()))
-            );*/
             double distance = sqrt(
                ((sat2Pos.getPixelsX() - sat1Pos.getPixelsX()) *
                   (sat2Pos.getPixelsX() - sat1Pos.getPixelsX())) +
@@ -170,7 +164,6 @@ void callBack(const Interface* pUI, void* p)
 
             if (distance <= ((*sat1)->getRadius() + (*sat2)->getRadius()))
             {
-               cout << "Collision happened!!!" << endl;
                sat1 = pSim->satellites.erase(sat1);
                sat2 = pSim->satellites.erase(sat2);
             }
