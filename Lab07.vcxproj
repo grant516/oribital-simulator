@@ -160,6 +160,8 @@
     <ClInclude Include="acceleration.h" />
     <ClInclude Include="direction.h" />
     <ClInclude Include="earth.h" />
+    <ClInclude Include="fragment.h" />
+    <ClInclude Include="parts.h" />
     <ClInclude Include="physics.h" />
     <ClInclude Include="position.h" />
     <ClInclude Include="projectile.h" />

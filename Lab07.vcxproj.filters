@@ -110,6 +110,12 @@
     <ClInclude Include="whole.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="parts.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="fragment.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

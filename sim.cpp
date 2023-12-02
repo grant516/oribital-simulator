@@ -139,14 +139,14 @@ void callBack(const Interface* pUI, void* p)
 
    for (auto sat : pSim->satellites)
    {
-      sat->movePosition(time, pSim->earth.getRadius(), pSim->earth.getGravity());
+      sat->movePosition(time, pSim->earth.getRadiusMeters(), pSim->earth.getGravity());
       sat->moveFacingDirection();
    }
 
 
    // check for collisions
    //for (auto sat1 : pSim->satellites)
-   for (auto sat1 = pSim->satellites.begin(); sat1 != pSim->satellites.end(); ++sat1)
+   for (auto sat1 = pSim->satellites.begin(); sat1 != pSim->satellites.end();)
    {
       //for (auto sat2 : pSim->satellites)
       for (auto sat2 = pSim->satellites.begin(); sat2 != pSim->satellites.end();)
@@ -177,32 +177,49 @@ void callBack(const Interface* pUI, void* p)
             ++sat2;
          }
       }
+      Position sat1Pos = (*sat1)->getPosition();
+      Position earthPos = pSim->earth.getPosition();
+      double distance = sqrt(
+         ((earthPos.getPixelsX() - sat1Pos.getPixelsX()) *
+            (earthPos.getPixelsX() - sat1Pos.getPixelsX())) +
+         ((earthPos.getPixelsY() - sat1Pos.getPixelsY()) *
+            (earthPos.getPixelsY() - sat1Pos.getPixelsY()))
+      );
 
-      double pi = 2 * asin(1.0);
-
-      // rotate the earth
-      pSim->earth.rotate();
-      pSim->phaseStar++;
-
-      //
-      // draw everything
-      //
-
-      Position pt;
-      ogstream gout(pt);
-
-      // draw satellites
-
-      // draw could be handled by a loop later after we have them in a list
-
-      // draw satellites
-      for (auto sat : pSim->satellites)
-         sat->draw(gout);
-
-
-      // draw the earth
-      pSim->earth.draw(gout);
+      if (distance <= ((*sat1)->getRadius() + pSim->earth.getRadiusPixels()))
+      {
+         sat1 = pSim->satellites.erase(sat1);
+      }
+      else
+      {
+         ++sat1;
+      }
    }
+
+   double pi = 2 * asin(1.0);
+
+   // rotate the earth
+   pSim->earth.rotate();
+   pSim->phaseStar++;
+
+   //
+   // draw everything
+   //
+
+   Position pt;
+   ogstream gout(pt);
+
+   // draw satellites
+
+   // draw could be handled by a loop later after we have them in a list
+
+   // draw satellites
+   for (auto sat : pSim->satellites)
+      sat->draw(gout);
+
+
+   // draw the earth
+   pSim->earth.draw(gout);
 }
 
 double Position::metersFromPixels = 40.0;
