@@ -11,6 +11,7 @@
 #include "star.h"
 #include "earth.h"
 #include "whole.h"
+#include <math.h>
 using namespace std;
 
 /*************************************************************************
@@ -30,6 +31,7 @@ public:
       gps0(Position(0.0, 26560000.0), Direction(), Velocity(-3880.0, 0.0)),
       gps1(Position(23001634.72, 13280000.0), Direction(), Velocity(-1940.00, 3360.18)),
       gps2(Position(23001634.72, -13280000.0), Direction(), Velocity(1940.00, 3360.18)),
+      testing(Position(23001634.72, -13280000.0), Direction(), Velocity(1940.00, 3360.18)),
       gps3(Position(0.0, -26560000.0), Direction(), Velocity(3880.0, 0.0)),
       gps4(Position(-23001634.72, -13280000.0), Direction(), Velocity(1940.00, -3360.18)),
       gps5(Position(-23001634.72, 13280000.0), Direction(), Velocity(-1940.00, -3360.18)),
@@ -62,6 +64,7 @@ public:
    Starlink starlink;
    Ship ship;
 
+   Ship testing;
 
 
    unsigned char phaseStar;
@@ -85,7 +88,8 @@ public:
       &hubble,
       &dragon,
       &starlink,
-      &ship
+      &ship,
+      &testing
    };
 
 
@@ -138,9 +142,45 @@ void callBack(const Interface* pUI, void* p)
 
    for (auto sat : pSim->satellites)
    {
-      sat->movePosition(time, pSim->earth.getRadius(), pSim->earth.getGravity());
-      sat->moveFacingDirection();
+     sat->movePosition(time, pSim->earth.getRadius(), pSim->earth.getGravity());
+     sat->moveFacingDirection();
    }
+      
+
+   // check for collisions
+   //for (auto sat1 : pSim->satellites)
+   for (auto sat1 = pSim->satellites.begin(); sat1 != pSim->satellites.end(); ++sat1)
+   {
+      //for (auto sat2 : pSim->satellites)
+      for (auto sat2 = pSim->satellites.begin(); sat2 != pSim->satellites.end();)
+      {
+         if (sat1 != sat2)
+         {
+            Position sat1Pos = (*sat1)->getPosition();
+            Position sat2Pos = (*sat2)->getPosition();
+            double distance = sqrt(
+               ((sat2Pos.getMetersX() - sat1Pos.getMetersX()) *
+                  (sat2Pos.getMetersX() - sat1Pos.getMetersX())) +
+               ((sat2Pos.getMetersY() - sat1Pos.getMetersY()) *
+                  (sat2Pos.getMetersY() - sat1Pos.getMetersY()))
+            );
+
+            if (distance <= ((*sat1)->getRadius() + (*sat2)->getRadius()))
+            {
+               cout << "Collision happened!!!" << endl;
+               sat1 = pSim->satellites.erase(sat1);
+               sat2 = pSim->satellites.erase(sat2);
+            }
+            else
+            {
+               ++sat2;
+            }
+         }
+         else
+         {
+            ++sat2;
+         }
+      }
 
    double pi = 2 * asin(1.0);
 
