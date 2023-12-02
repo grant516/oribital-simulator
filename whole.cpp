@@ -1,5 +1,13 @@
 #include "whole.h"
 
+Position Whole::offsetPosition(Position pos)
+{
+   // Set x and y 5 pixels away randomly
+   pos.setPixelsX(pos.getPixelsX() + random(-5, 5));
+   pos.setPixelsY(pos.getPixelsY() + random(-5, 5));
+
+   return pos;
+}
 
 
 // SPUTNIK FUNCTIONS
@@ -21,6 +29,19 @@ void Sputnik::draw(ogstream& gout)
 
 // GPS FUNCTIONS
 
+
+
+vector<Part> GPS::getParts()
+{
+   vector<Part> parts;
+   
+   parts.push_back(GPSCenter());
+   parts.push_back(GPSLeft());
+   parts.push_back(GPSRight());
+
+   return parts;
+}
+
 /*
 * GPS::draw
 * Uses the drawGPS function from uiDraw.
@@ -32,6 +53,19 @@ void GPS::draw(ogstream& gout)
 
 
 // HUBBLE FUNCTIONS
+
+
+vector<Part> Hubble::getParts()
+{
+   vector<Part> parts;
+
+   parts.push_back(HubbleTelescope());
+   parts.push_back(HubbleComputer());
+   parts.push_back(HubbleLeft());
+   parts.push_back(HubbleRight());
+
+   return parts;
+}
 
 void Hubble::moveFacingDirection()
 {
@@ -51,6 +85,18 @@ void Hubble::draw(ogstream& gout)
 
 // DRAGON FUNCTIONS
 
+
+vector<Part> Dragon::getParts()
+{
+   vector<Part> parts;
+
+   parts.push_back(CrewDragonCenter());
+   parts.push_back(CrewDragonLeft());
+   parts.push_back(CrewDragonRight());
+
+   return parts;
+}
+
 /*
 * Dragon::draw
 * Uses the drawCrewDragon function from uiDraw.
@@ -62,6 +108,18 @@ void Dragon::draw(ogstream& gout)
 
 
 // STARLINK FUNCTIONS
+
+
+
+vector<Part> Starlink::getParts()
+{
+   vector<Part> parts;
+
+   parts.push_back(StarlinkBody());
+   parts.push_back(StarlinkArray());
+
+   return parts;
+}
 
 /*
 * Starlink::draw

@@ -41,6 +41,7 @@ public:
    virtual double getGravity(double x, double y);
    virtual void setPosition(Position p) { position = p; }
    virtual void setMovementDirection(Direction d) { movementDirection = d; }
+   virtual Direction getMovementDirection() { return movementDirection; }
 
 protected:
    virtual double getHtAbovePlanet(double planetRadius);

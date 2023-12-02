@@ -172,6 +172,9 @@ void callBack(const Interface* pUI, void* p)
 
             if (distance <= ((*sat1)->getRadius() + (*sat2)->getRadius()))
             {
+               
+               // Add the parts to the list of satellites
+
                sat1 = pSim->satellites.erase(sat1);
                sat2 = pSim->satellites.erase(sat2);
             }

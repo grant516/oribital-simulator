@@ -8,4 +8,7 @@ class Fragment : public Satellite
 {
 public:
    Fragment() {};
+
+   void draw(ogstream& gout) { gout.drawFragment(position, facingDirection.getRadians()); }
+
 };

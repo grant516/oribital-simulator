@@ -1,6 +1,10 @@
 #pragma once
 #include "satellite.h"
 #include "uiDraw.h"
+#include "parts.h"
+#include <vector>
+using namespace std;
+
 
 
 /*************************************************************************
@@ -12,6 +16,9 @@ class Whole : public Satellite
 {
 public:
    Whole() {};
+
+   virtual vector<Part> getParts() { vector<Part> parts; return parts; }
+   Position offsetPosition(Position pos);
 };
 
 /*************************************************************************
@@ -54,6 +61,8 @@ public:
       radius = 12; // pixels
       numFragments = 2;
    }
+
+   vector<Part> getParts();
    void draw(ogstream& gout);
 };
 
@@ -75,6 +84,7 @@ public:
       numFragments = 0;
    }
    
+   vector<Part> getParts();
    void moveFacingDirection();
    void draw(ogstream& gout);
 };
@@ -96,6 +106,8 @@ public:
       radius = 7; // pixels
       numFragments = 2;
    }
+
+   vector<Part> getParts();
    void draw(ogstream& gout);
 };
 
@@ -116,6 +128,8 @@ public:
       radius = 6; // pixels
       numFragments = 2;
    }
+
+   vector<Part> getParts();
    void draw(ogstream& gout);
 };
 

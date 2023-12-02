@@ -8,90 +8,90 @@
  * This class is the base class for all parts of the satellites. It inherits from the Satellite class.
  * It is used to organize all parts of satellites.
  *************************************************************************/
-class Parts : public Satellite
+class Part : public Satellite
 {
 public:
-   Parts() {};
+   Part() {};
 };
 
-class StarlinkArray : public Parts
+class StarlinkArray : public Part
 {
 public:
    StarlinkArray() { radius = 4; };
    void draw(ogstream& gout) { gout.drawStarlinkArray(position, facingDirection.getRadians()); }
 };
 
-class StarlinkBody : public Parts
+class StarlinkBody : public Part
 {
 public:
    StarlinkBody() { radius = 2; };
    void draw(ogstream& gout) { gout.drawStarlinkBody(position, facingDirection.getRadians()); }
 };
 
-class CrewDragonRight : public Parts
+class CrewDragonRight : public Part
 {
 public:
    CrewDragonRight() { radius = 6; };
    void draw(ogstream& gout) { gout.drawCrewDragonRight(position, facingDirection.getRadians()); }
 };
 
-class CrewDragonLeft : public Parts
+class CrewDragonLeft : public Part
 {
 public:
    CrewDragonLeft() { radius = 6; };
    void draw(ogstream& gout) { gout.drawCrewDragonLeft(position, facingDirection.getRadians()); }
 };
 
-class CrewDragonCenter : public Parts
+class CrewDragonCenter : public Part
 {
 public:
    CrewDragonCenter() { radius = 6; };
    void draw(ogstream& gout) { gout.drawCrewDragonCenter(position, facingDirection.getRadians()); }
 };
 
-class HubbleRight : public Parts
+class HubbleRight : public Part
 {
 public:
    HubbleRight() { radius = 8; };
    void draw(ogstream& gout) { gout.drawHubbleRight(position, facingDirection.getRadians()); }
 };
 
-class HubbleLeft : public Parts
+class HubbleLeft : public Part
 {
 public:
    HubbleLeft() { radius = 8; };
    void draw(ogstream& gout) { gout.drawHubbleLeft(position, facingDirection.getRadians()); }
 };
 
-class HubbleComputer : public Parts
+class HubbleComputer : public Part
 {
 public:
    HubbleComputer() { radius = 7; };
    void draw(ogstream& gout) { gout.drawHubbleComputer(position, facingDirection.getRadians()); }
 };
 
-class HubbleTelescope : public Parts
+class HubbleTelescope : public Part
 {
 public:
    HubbleTelescope() { radius = 10; };
    void draw(ogstream& gout) { gout.drawHubbleTelescope(position, facingDirection.getRadians()); }
 };
 
-class GPSRight : public Parts
+class GPSRight : public Part
 {
 public:
    GPSRight() { radius = 8; };
    void draw(ogstream& gout) { gout.drawGPSRight(position, facingDirection.getRadians()); }
 };
 
-class GPSLeft : public Parts
+class GPSLeft : public Part
 {
 public:
    GPSLeft() { radius = 8; };
    void draw(ogstream& gout) { gout.drawGPSLeft(position, facingDirection.getRadians()); }
 };
 
-class GPSCenter : public Parts
+class GPSCenter : public Part
 {
 public:
    GPSCenter() { radius = 7; };
