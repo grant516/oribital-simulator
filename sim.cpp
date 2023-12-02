@@ -155,11 +155,17 @@ void callBack(const Interface* pUI, void* p)
          {
             Position sat1Pos = (*sat1)->getPosition();
             Position sat2Pos = (*sat2)->getPosition();
-            double distance = sqrt(
+            /*double distance = sqrt(
                ((sat2Pos.getMetersX() - sat1Pos.getMetersX()) *
                   (sat2Pos.getMetersX() - sat1Pos.getMetersX())) +
                ((sat2Pos.getMetersY() - sat1Pos.getMetersY()) *
                   (sat2Pos.getMetersY() - sat1Pos.getMetersY()))
+            );*/
+            double distance = sqrt(
+               ((sat2Pos.getPixelsX() - sat1Pos.getPixelsX()) *
+                  (sat2Pos.getPixelsX() - sat1Pos.getPixelsX())) +
+               ((sat2Pos.getPixelsY() - sat1Pos.getPixelsY()) *
+                  (sat2Pos.getPixelsY() - sat1Pos.getPixelsY()))
             );
 
             if (distance <= ((*sat1)->getRadius() + (*sat2)->getRadius()))
