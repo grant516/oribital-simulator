@@ -39,11 +39,12 @@ public:
    virtual void moveFacingDirection();
    virtual double getAltitude(double x, double y);
    virtual double getGravity(double x, double y);
+   virtual Direction getFacingDirection() { return facingDirection; }
    virtual Direction getMovementDirection() { return movementDirection; }
    virtual Velocity getVelocity() { return velocity; }
    virtual void setPosition(Position p) { position = p; }
    virtual void setMovementDirection(Direction d) { movementDirection = d; }
-   virtual Direction getMovementDirection() { return movementDirection; }
+   virtual Position getFrontPosition();
 
 protected:
    virtual double getHtAbovePlanet(double planetRadius);

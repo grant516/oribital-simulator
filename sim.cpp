@@ -114,34 +114,43 @@ void callBack(const Interface* pUI, void* p)
    //
    // perform all the game logic
    //
+   if (pSim->ship.isDead() == false)
+   {
+      // Get input
+      if (pUI->isUp())
+      {
+         pSim->ship.fireMainThruster();
+      }
+      else
+      {
+         pSim->ship.stopMainThruster();
+      }
 
-   // Get input
-   if (pUI->isUp())
-   {
-      pSim->ship.fireMainThruster();
-   }
-   else
-   {
-      pSim->ship.stopMainThruster();
+      if (pUI->isRight())
+      {
+         pSim->ship.fireRightThruster();
+      }
+
+      if (pUI->isLeft())
+      {
+         pSim->ship.fireLeftThruster();
+      }
+
+      if (pUI->isSpace())
+      {
+         Velocity bulletVelocity;
+         bulletVelocity.hrzCompVel(pSim->ship.getFacingDirection().getRadians(), 9000);
+         bulletVelocity.vertCompVel(pSim->ship.getFacingDirection().getRadians(), 9000);
+         bulletVelocity.addVelocity(pSim->ship.getVelocity());
+       
+         Projectile* p = new Projectile(bulletVelocity,
+            pSim->ship.getFacingDirection(),
+            pSim->ship.getFrontPosition());
+         
+         pSim->satellites.emplace_back(p);
+      }
    }
 
-   if (pUI->isRight())
-   {
-      pSim->ship.fireRightThruster();
-   }
-
-   if (pUI->isLeft())
-   {
-      pSim->ship.fireLeftThruster();
-   }
-
-   if (pUI->isSpace())
-   {
-      Projectile p(pSim->ship.getVelocity(), 
-         pSim->ship.getMovementDirection(),
-         pSim->ship.getPosition());
-      pSim->satellites.emplace_back(&p);
-   }
 
    //Physics
    double time = pSim->hubblePhysics.getTimeFrame();
@@ -187,6 +196,11 @@ void callBack(const Interface* pUI, void* p)
                
                // Add the parts to the list of satellites
 
+               // kill both satellites
+               (*sat1)->kill();
+               (*sat2)->kill();
+
+               // remove both satellites from the list
                sat1 = pSim->satellites.erase(sat1);
                sat2 = pSim->satellites.erase(sat2);
             }
@@ -223,10 +237,6 @@ void callBack(const Interface* pUI, void* p)
 
    Position pt;
    ogstream gout(pt);
-
-   // draw satellites
-
-   // draw could be handled by a loop later after we have them in a list
 
    // draw satellites
    for (auto sat : pSim->satellites)

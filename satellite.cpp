@@ -61,6 +61,21 @@ double Satellite::getGravity(double x, double y)
 }
 
 
+Position Satellite::getFrontPosition()
+{
+   // Find the position 19 pixels in front of the ship, in the direction it is facing
+   // This can be done by taking the center + 19 pixels y, and rotating it by the angle
+   // of the ship
+   Position frontPosition = position;
+
+   int x = position.getPixelsX() + 19 * cos(facingDirection.getRadians());
+   int y = position.getPixelsY() + 19 * sin(facingDirection.getRadians());
+   frontPosition.setPixelsX(x);
+   frontPosition.setPixelsY(y);
+
+   return frontPosition;
+}
+
 /*
 * Height above the Earth
 * h = height above the earth in meters
