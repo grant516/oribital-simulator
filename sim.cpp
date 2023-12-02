@@ -31,7 +31,6 @@ public:
       gps0(Position(0.0, 26560000.0), Direction(), Velocity(-3880.0, 0.0)),
       gps1(Position(23001634.72, 13280000.0), Direction(), Velocity(-1940.00, 3360.18)),
       gps2(Position(23001634.72, -13280000.0), Direction(), Velocity(1940.00, 3360.18)),
-      testing(Position(23001634.72, -13280000.0), Direction(), Velocity(1940.00, 3360.18)),
       gps3(Position(0.0, -26560000.0), Direction(), Velocity(3880.0, 0.0)),
       gps4(Position(-23001634.72, -13280000.0), Direction(), Velocity(1940.00, -3360.18)),
       gps5(Position(-23001634.72, 13280000.0), Direction(), Velocity(-1940.00, -3360.18)),
@@ -64,7 +63,6 @@ public:
    Starlink starlink;
    Ship ship;
 
-   Ship testing;
 
 
    unsigned char phaseStar;
@@ -89,7 +87,6 @@ public:
       &dragon,
       &starlink,
       &ship,
-      &testing
    };
 
 
@@ -142,10 +139,10 @@ void callBack(const Interface* pUI, void* p)
 
    for (auto sat : pSim->satellites)
    {
-     sat->movePosition(time, pSim->earth.getRadius(), pSim->earth.getGravity());
-     sat->moveFacingDirection();
+      sat->movePosition(time, pSim->earth.getRadius(), pSim->earth.getGravity());
+      sat->moveFacingDirection();
    }
-      
+
 
    // check for collisions
    //for (auto sat1 : pSim->satellites)
@@ -182,30 +179,31 @@ void callBack(const Interface* pUI, void* p)
          }
       }
 
-   double pi = 2 * asin(1.0);
+      double pi = 2 * asin(1.0);
 
-   // rotate the earth
-   pSim->earth.rotate();
-   pSim->phaseStar++;
+      // rotate the earth
+      pSim->earth.rotate();
+      pSim->phaseStar++;
 
-   //
-   // draw everything
-   //
+      //
+      // draw everything
+      //
 
-   Position pt;
-   ogstream gout(pt);
+      Position pt;
+      ogstream gout(pt);
 
-   // draw satellites
+      // draw satellites
 
-   // draw could be handled by a loop later after we have them in a list
+      // draw could be handled by a loop later after we have them in a list
 
-   // draw satellites
-   for (auto sat : pSim->satellites)
-      sat->draw(gout);
+      // draw satellites
+      for (auto sat : pSim->satellites)
+         sat->draw(gout);
 
 
-   // draw the earth
-   pSim->earth.draw(gout);
+      // draw the earth
+      pSim->earth.draw(gout);
+   }
 }
 
 double Position::metersFromPixels = 40.0;
