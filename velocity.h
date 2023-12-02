@@ -31,11 +31,13 @@ public:
 
    void addDx(double dxAdded) { dx += dxAdded; }
    void addDy(double dyAdded) { dy += dyAdded; }
-   //void add(Velocity velocity) {} // TODO: implement this, or is it the same as updateVelocity?
+   void addVelocity(Velocity velocity);
    virtual void updateVelocity(double ddx, double ddy, double t);
 
    void hrzVelWConstA(double ddx, double time);
    void vertVelWConstA(double ddy, double time);
+   void hrzCompVel(double angle, double speed);
+   void vertCompVel(double angle, double speed);
 };
 
 class DummyVelocity : public Velocity
