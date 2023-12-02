@@ -12,9 +12,9 @@ class Satellite
 protected:
    Velocity velocity;
    Position position;
-   Direction direction;
+   Direction movementDirection;
+   Direction facingDirection;
    Acceleration acceleration;
-   double angularVelocity;
    bool dead = false;
    double radius;
    double numFragments;
@@ -26,7 +26,8 @@ public:
    Satellite(Position p, Direction d) 
    {
       position = p;
-      direction = d;
+      movementDirection = d;
+      facingDirection = d;
    }
 
    virtual double getRadius() { return radius; }
@@ -34,13 +35,14 @@ public:
    virtual Position getPosition() { return position; }
    virtual void kill();
    virtual void draw(ogstream &gout);
-   virtual void move(double time, double planetRadius, double planetGravity);
+   virtual void movePosition(double time, double planetRadius, double planetGravity);
+   virtual void moveFacingDirection();
    virtual double getAltitude(double x, double y);
    virtual double getGravity(double x, double y);
    virtual void setPosition(Position p) { position = p; }
-   virtual void setDirection(Direction d) { direction = d; }
+   virtual void setMovementDirection(Direction d) { movementDirection = d; }
 
-private:
+protected:
    virtual double getHtAbovePlanet(double planetRadius);
    virtual void hrzDistFormula(double timeFrame);
    virtual void vertDistFormula(double timeFrame);

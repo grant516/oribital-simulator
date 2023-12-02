@@ -25,7 +25,8 @@ public:
    Sim(Position ptUpperRight) :
       ptUpperRight(ptUpperRight),
   
-      hubblePhysics(24, 60, 30, -3100.0, 0.0, -9.80665),
+      hubblePhysics(24, 60, 30, -3100.0, 0.0, -9.80665), // We are using this to calculate time, but it needs to be REPLACED
+
       sputnik(Position(-36515095.13, 21082000.0), Direction(), Velocity(2050.0, 2684.68)),
       gps0(Position(0.0, 26560000.0), Direction(), Velocity(-3880.0, 0.0)),
       gps1(Position(23001634.72, 13280000.0), Direction(), Velocity(-1940.00, 3360.18)),
@@ -116,12 +117,33 @@ void callBack(const Interface* pUI, void* p)
    // perform all the game logic
    //
 
+   // Get input
+   if (pUI->isUp())
+   {
+      pSim->ship.fireMainThruster();
+   }
+   else
+   {
+      pSim->ship.stopMainThruster();
+   }
+
+   if (pUI->isRight())
+   {
+      pSim->ship.fireRightThruster();
+   }
+
+   if (pUI->isLeft())
+   {
+      pSim->ship.fireLeftThruster();
+   }
+
    //Physics
    double time = pSim->hubblePhysics.getTimeFrame();
 
    for (auto sat : pSim->satellites)
    {
-      sat->move(time, pSim->earth.getRadius(), pSim->earth.getGravity());
+     sat->movePosition(time, pSim->earth.getRadius(), pSim->earth.getGravity());
+     sat->moveFacingDirection();
    }
       
 
@@ -159,13 +181,11 @@ void callBack(const Interface* pUI, void* p)
             ++sat2;
          }
       }
-   }
 
    double pi = 2 * asin(1.0);
 
    // rotate the earth
    pSim->earth.rotate();
-   pSim->angleShip += 0.02;
    pSim->phaseStar++;
 
    //

@@ -11,7 +11,8 @@ void Satellite::draw(ogstream &gout)
 
 }
 
-void Satellite::move(double time, double planetRadius, double planetGravity)
+
+void Satellite::movePosition(double time, double planetRadius, double planetGravity)
 {
    // calculate earth's gravity pull for both ddx and ddy
    // get the height away from the earth
@@ -24,11 +25,11 @@ void Satellite::move(double time, double planetRadius, double planetGravity)
 
    // Get radians angle
    // Use Direction
-   direction.setRadians(dirGravityPull(0.0, 0.0) + PI);
+   double rad = dirGravityPull(0.0, 0.0) + PI;
 
    // Use Acceleration
-   acceleration.hrzCompAccel(currentGravity, direction.getRadians());
-   acceleration.vertCompAccel(currentGravity, direction.getRadians());
+   acceleration.hrzCompAccel(currentGravity, rad);
+   acceleration.vertCompAccel(currentGravity, rad);
 
    // use Velocity
    velocity.hrzVelWConstA(acceleration.getDDx(), time);
@@ -37,6 +38,12 @@ void Satellite::move(double time, double planetRadius, double planetGravity)
    // use Position
    hrzDistFormula(time);
    vertDistFormula(time);
+}
+
+
+void Satellite::moveFacingDirection()
+{
+   facingDirection.setRadians(dirGravityPull(0.0, 0.0) + PI / 2); // Face the earth
 }
 
 double Satellite::getAltitude(double x, double y)
