@@ -25,11 +25,14 @@ public:
    Sputnik(Position p, Direction d, Velocity v)
    {
       position = p;
-      direction = d;
+      movementDirection = d;
+      facingDirection = d;
       velocity = v;
       radius = 4; // pixels
       numFragments = 4;
    }
+
+   void moveFacingDirection();
    void draw(ogstream& gout);
 };
 
@@ -45,7 +48,8 @@ public:
    GPS(Position p, Direction d, Velocity v)
    {
       position = p;
-      direction = d;
+      movementDirection = d;
+      facingDirection = d;
       velocity = v;
       radius = 12; // pixels
       numFragments = 2;
@@ -64,11 +68,14 @@ public:
    Hubble(Position p, Direction d, Velocity v)
    {
       position = p;
-      direction = d;
+      movementDirection = d;
+      facingDirection = facingDirection = 0.5;
       velocity = v;
       radius = 10; // pixels
       numFragments = 0;
    }
+   
+   void moveFacingDirection();
    void draw(ogstream& gout);
 };
 
@@ -83,7 +90,8 @@ public:
    Dragon(Position p, Direction d, Velocity v)
    {
       position = p;
-      direction = d;
+      movementDirection = d;
+      facingDirection = d;
       velocity = v;
       radius = 7; // pixels
       numFragments = 2;
@@ -102,7 +110,8 @@ public:
    Starlink(Position p, Direction d, Velocity v)
    {
       position = p;
-      direction = d;
+      movementDirection = d;
+      facingDirection = d;
       velocity = v;
       radius = 6; // pixels
       numFragments = 2;
@@ -121,12 +130,21 @@ public:
    Ship(Position p, Direction d, Velocity v)
    {
       position = p;
-      direction = d;
+      movementDirection = d;
+      facingDirection = d;
       velocity = v;
       radius = 10; // pixels
       numFragments = 0;
    }
    void draw(ogstream& gout);
+
+   void movePosition(double time, double planetRadius, double planetGravity);
+   void moveFacingDirection();
+
+   void fireMainThruster() { thrusterOn = true; }
+   void stopMainThruster() { thrusterOn = false; }
+   void fireLeftThruster() { facingDirection.rotate(-0.1); }
+   void fireRightThruster() { facingDirection.rotate(0.1); }
 
 private:
    bool thrusterOn = false;

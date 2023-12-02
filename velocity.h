@@ -27,7 +27,7 @@ public:
    virtual void setDx(double xSpeed) { dx = xSpeed; }
    virtual void setDy(double ySpeed) { dy = ySpeed; }
    //void setSpeed(double speed) {} // TODO: implement this
-   //void setDirection(Direction direction) {} // TODO: implement this
+   //void setMovementDirection(Direction direction) {} // TODO: implement this
 
    void addDx(double dxAdded) { dx += dxAdded; }
    void addDy(double dyAdded) { dy += dyAdded; }
