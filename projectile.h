@@ -13,7 +13,6 @@ public:
       time = 0;
       radius = 0.5;
       position = p;
-      position.addPixelsX(15);
       velocity.hrzCompVel(dir.getRadians(), 9000);
       velocity.vertCompVel(dir.getRadians(), 9000);
       velocity.addVelocity(v);
