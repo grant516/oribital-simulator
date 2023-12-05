@@ -42,7 +42,7 @@ public:
    virtual Direction getFacingDirection() { return facingDirection; }
    virtual Direction getMovementDirection() { return movementDirection; }
    virtual Velocity getVelocity() { return velocity; }
-   virtual void setPosition(Position p) { position = p; }
+   virtual void expire() {};
    virtual void setMovementDirection(Direction d) { movementDirection = d; }
    virtual Position getFrontPosition();
 

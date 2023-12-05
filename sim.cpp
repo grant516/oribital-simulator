@@ -155,14 +155,19 @@ void callBack(const Interface* pUI, void* p)
    //Physics
    double time = pSim->hubblePhysics.getTimeFrame();
 
-   int x = 0;
-   for (auto sat : pSim->satellites)
+   for (auto sat = pSim->satellites.begin(); sat != pSim->satellites.end();)
    {
-      sat->movePosition(time, pSim->earth.getRadiusMeters(), pSim->earth.getGravity());
-      sat->moveFacingDirection();
-      x++;
+      (*sat)->movePosition(time, pSim->earth.getRadiusMeters(), 
+         pSim->earth.getGravity());
+      (*sat)->moveFacingDirection();
+      (*sat)->expire();
+      if ((*sat)->isDead())
+      {
+         sat = pSim->satellites.erase(sat);
+      }
+      else
+         ++sat;
    }
-
 
    // check for collisions
    //for (auto sat1 : pSim->satellites)

@@ -4,7 +4,7 @@
 class Projectile : public Satellite
 {
 private:
-   double time;
+   double time = 0;
 
 public:
    Projectile(Velocity v, Direction dir, Position p) 
@@ -19,7 +19,13 @@ public:
       velocity.addVelocity(v);
    }
    void draw(ogstream& gout) { gout.drawProjectile(position); }
-   void expire();
+   void expire() 
+   {
+      if (time >= 70)
+         kill();
+      else
+         time++;
+   };
 
 private:
    void addFivePixels();
