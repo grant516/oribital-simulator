@@ -185,3 +185,12 @@ void Ship::moveFacingDirection()
    // Keep this empty, since it is overriding the function in the base class
    // This is because the ship changes direction based on input from the user
 }
+
+Projectile* Ship::shootProjectile()
+{
+   Projectile* p = new Projectile(velocity,
+      getFacingDirection(),
+      getFrontPosition());
+   
+   return p;
+}
