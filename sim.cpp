@@ -155,23 +155,16 @@ void callBack(const Interface* pUI, void* p)
    //Physics
    double time = pSim->hubblePhysics.getTimeFrame();
 
-   for (auto sat = pSim->satellites.begin(); sat != pSim->satellites.end();)
+   for (auto sat = pSim->satellites.begin(); sat != pSim->satellites.end(); ++sat)
    {
       (*sat)->movePosition(time, pSim->earth.getRadiusMeters(), 
          pSim->earth.getGravity());
       (*sat)->moveFacingDirection();
       (*sat)->expire();
-      if ((*sat)->isDead())
-      {
-         sat = pSim->satellites.erase(sat);
-      }
-      else
-         ++sat;
    }
 
    // check for collisions
-   //for (auto sat1 : pSim->satellites)
-   for (auto sat1 = pSim->satellites.begin(); sat1 != pSim->satellites.end();)
+   for (auto sat1 = pSim->satellites.begin(); sat1 != pSim->satellites.end(); ++sat1)
    {
       sat1;
       Position sat1Pos = (*sat1)->getPosition();
@@ -183,9 +176,9 @@ void callBack(const Interface* pUI, void* p)
             (earthPos.getPixelsY() - sat1Pos.getPixelsY()))
       );
 
-      for (auto sat2 = pSim->satellites.begin(); sat2 != pSim->satellites.end();)
+      for (auto sat2 = pSim->satellites.begin(); sat2 != pSim->satellites.end(); ++sat2)
       {
-         if (sat1 != sat2)
+         if (sat1 != sat2 && (!(*sat1)->isDead() && !(*sat2)->isDead()))
          {
             Position sat1Pos = (*sat1)->getPosition();
             Position sat2Pos = (*sat2)->getPosition();
@@ -204,30 +197,26 @@ void callBack(const Interface* pUI, void* p)
                // kill both satellites
                (*sat1)->kill();
                (*sat2)->kill();
-
-               // remove both satellites from the list
-               sat1 = pSim->satellites.erase(sat1);
-               sat2 = pSim->satellites.erase(sat2);
             }
-            else
-            {
-               ++sat2;
-            }
-         }
-         else
-         {
-            ++sat2;
          }
       }
 
-      if (distance <= ((*sat1)->getRadius() + pSim->earth.getRadiusPixels()))
+      if (distance <= ((*sat1)->getRadius() + pSim->earth.getRadiusPixels())
+         && !(*sat1)->isDead())
       {
-         sat1 = pSim->satellites.erase(sat1);
+         (*sat1)->kill();
+      }
+   }
+
+   // erase dead things
+   for (auto sat = pSim->satellites.begin(); sat != pSim->satellites.end();)
+   {
+      if ((*sat)->isDead())
+      {
+         sat = pSim->satellites.erase(sat);
       }
       else
-      {
-         ++sat1;
-      }
+         ++sat;
    }
 
    double pi = 2 * asin(1.0);
