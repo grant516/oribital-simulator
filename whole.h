@@ -2,6 +2,7 @@
 #include "satellite.h"
 #include "uiDraw.h"
 #include "parts.h"
+#include "projectile.h"
 #include <vector>
 using namespace std;
 
@@ -159,6 +160,8 @@ public:
    void stopMainThruster() { thrusterOn = false; }
    void fireLeftThruster() { facingDirection.rotate(-0.1); }
    void fireRightThruster() { facingDirection.rotate(0.1); }
+
+   Projectile* shootProjectile();
 
 private:
    bool thrusterOn = false;

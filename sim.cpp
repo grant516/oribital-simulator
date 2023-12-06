@@ -138,15 +138,7 @@ void callBack(const Interface* pUI, void* p)
 
       if (pUI->isSpace())
       {
-         Velocity bulletVelocity;
-         bulletVelocity.hrzCompVel(pSim->ship.getFacingDirection().getRadians(), 9000);
-         bulletVelocity.vertCompVel(pSim->ship.getFacingDirection().getRadians(), 9000);
-         bulletVelocity.addVelocity(pSim->ship.getVelocity());
-       
-         Projectile* p = new Projectile(bulletVelocity,
-            pSim->ship.getFacingDirection(),
-            pSim->ship.getFrontPosition());
-         
+         Projectile* p = pSim->ship.shootProjectile();
          pSim->satellites.emplace_back(p);
       }
    }
