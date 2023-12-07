@@ -127,26 +127,28 @@ void Starlink::draw(ogstream& gout)
 */
 void Ship::setFrontPosition()
 {
-   //Position frontPosition = position;
-
    double x = position.getPixelsX() + 19 * sin(facingDirection.getRadians());
    double y = position.getPixelsY() + 19 * cos(facingDirection.getRadians());
    frontPosition.setPixelsX(x);
    frontPosition.setPixelsY(y);
-
-  //return frontPosition;
 }
 
+/*
+* Ship::fireProjectile
+* This is where the fun begins! Used for firing projectiles from the front of 
+* the ship.
+*/
 void Ship::fireProjectile(list<Satellite*>& satellites)
 {
+   // Take the velocity of the ship and add 9000 to it
    Velocity bulletVelocity;
-   bulletVelocity.hrzCompVel(getFacingDirection().getRadians(), 9000);
-   bulletVelocity.vertCompVel(getFacingDirection().getRadians(), 9000);
-   bulletVelocity.addVelocity(getVelocity());
+   bulletVelocity.hrzCompVel(facingDirection.getRadians(), 9000);
+   bulletVelocity.vertCompVel(facingDirection.getRadians(), 9000);
+   bulletVelocity.addVelocity(velocity);
 
-   setFrontPosition();
+   setFrontPosition(); // set the frontPosition attribute for the projectile
 
-   Projectile* p = new Projectile(bulletVelocity, getFacingDirection(),
+   Projectile* p = new Projectile(bulletVelocity, facingDirection,
       frontPosition);
 
    satellites.emplace_back(p);
@@ -162,7 +164,10 @@ void Ship::draw(ogstream& gout)
    gout.drawShip(position, facingDirection.getRadians(), thrusterOn);
 }
 
-
+/*
+* Ship::movePosition
+* Calculates positional movement of the ship.
+*/
 void Ship::movePosition(double time, double planetRadius, double planetGravity)
 {
    // calculate earth's gravity pull for both ddx and ddy
@@ -199,6 +204,12 @@ void Ship::movePosition(double time, double planetRadius, double planetGravity)
    vertDistFormula(time);
 }
 
+
+/*
+* Ship::moveFacingDirection
+* Calculates the rotational movement of the ship to determine which direction
+* it is facing.
+*/
 void Ship::moveFacingDirection()
 {
    // Keep this empty, since it is overriding the function in the base class

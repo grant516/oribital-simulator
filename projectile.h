@@ -13,9 +13,7 @@ public:
       time = 0;
       radius = 0.5;
       position = p;
-      velocity.hrzCompVel(dir.getRadians(), 9000);
-      velocity.vertCompVel(dir.getRadians(), 9000);
-      velocity.addVelocity(v);
+      velocity = v;
    }
    void draw(ogstream& gout) { gout.drawProjectile(position); }
    void expire();
