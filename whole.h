@@ -166,6 +166,8 @@ public:
 protected:
    void setFrontPosition();
 
+   Projectile* shootProjectile();
+
 private:
    bool thrusterOn = false;
 };
