@@ -2,8 +2,9 @@
 #include "satellite.h"
 #include "uiDraw.h"
 #include "parts.h"
-#include "projectile.h"
+#include <list>
 #include <vector>
+#include "projectile.h"
 using namespace std;
 
 
@@ -160,6 +161,10 @@ public:
    void stopMainThruster() { thrusterOn = false; }
    void fireLeftThruster() { facingDirection.rotate(-0.1); }
    void fireRightThruster() { facingDirection.rotate(0.1); }
+   void fireProjectile(list<Satellite*>& satellites);
+
+protected:
+   void setFrontPosition();
 
    Projectile* shootProjectile();
 

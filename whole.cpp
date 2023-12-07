@@ -134,6 +134,37 @@ void Starlink::draw(ogstream& gout)
 // SHIP (DREAMCHASER) FUNCTIONS
 
 /*
+* This function determines the front of the ship to allow us to shoot
+* projectiles from the front of the ship.
+*/
+void Ship::setFrontPosition()
+{
+   //Position frontPosition = position;
+
+   double x = position.getPixelsX() + 19 * sin(facingDirection.getRadians());
+   double y = position.getPixelsY() + 19 * cos(facingDirection.getRadians());
+   frontPosition.setPixelsX(x);
+   frontPosition.setPixelsY(y);
+
+  //return frontPosition;
+}
+
+void Ship::fireProjectile(list<Satellite*>& satellites)
+{
+   Velocity bulletVelocity;
+   bulletVelocity.hrzCompVel(getFacingDirection().getRadians(), 9000);
+   bulletVelocity.vertCompVel(getFacingDirection().getRadians(), 9000);
+   bulletVelocity.addVelocity(getVelocity());
+
+   setFrontPosition();
+
+   Projectile* p = new Projectile(bulletVelocity, getFacingDirection(),
+      frontPosition);
+
+   satellites.emplace_back(p);
+}
+
+/*
 * Ship::draw
 * Uses the drawShip function from uiDraw. 
 * Also uses the thrusterOn variable so it knows when to draw the thruster.

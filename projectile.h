@@ -18,13 +18,7 @@ public:
       velocity.addVelocity(v);
    }
    void draw(ogstream& gout) { gout.drawProjectile(position); }
-   void expire() 
-   {
-      if (time >= 70)
-         kill();
-      else
-         time++;
-   };
+   void expire();
 
 private:
    void addFivePixels();

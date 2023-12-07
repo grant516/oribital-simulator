@@ -145,7 +145,6 @@
     <ClCompile Include="projectile.cpp" />
     <ClCompile Include="satellite.cpp" />
     <ClCompile Include="sim.cpp" />
-    <ClCompile Include="physics.cpp" />
     <ClCompile Include="position.cpp" />
     <ClCompile Include="star.cpp" />
     <ClCompile Include="test.cpp" />
@@ -162,7 +161,6 @@
     <ClInclude Include="earth.h" />
     <ClInclude Include="fragment.h" />
     <ClInclude Include="parts.h" />
-    <ClInclude Include="physics.h" />
     <ClInclude Include="position.h" />
     <ClInclude Include="projectile.h" />
     <ClInclude Include="satellite.h" />
