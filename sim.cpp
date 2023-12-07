@@ -205,6 +205,7 @@ void callBack(const Interface* pUI, void* p)
    {
       if ((*sat)->isDead())
       {
+         (*sat)->destroy(pSim->satellites);
          sat = pSim->satellites.erase(sat);
       }
       else

@@ -3,9 +3,7 @@
 void Whole::destroy(list<Satellite*>& satellites)
 {
    /*
-   // get the parts
-   vector<Part> parts = getParts();
-
+   
    // create fragment for numFragments
    for (int i = 0; i < numFragments; i++)
    {
@@ -55,22 +53,16 @@ void Sputnik::draw(ogstream& gout)
 void GPS::destroy(list<Satellite*>& satellites)
 {
    // create all the gps parts
-   GPSCenter center = GPSCenter(position);
+   GPSCenter* center = new GPSCenter(position, velocity, movementDirection);
+   GPSLeft* left = new GPSLeft(position, velocity, movementDirection);
+   GPSRight* right = new GPSRight(position, velocity, movementDirection);
 
    // add to list
    satellites.emplace_back(center);
+   satellites.emplace_back(left);
+   satellites.emplace_back(right);
 }
 
-vector<Part> GPS::getParts()
-{
-   vector<Part> parts;
-   
-   parts.push_back(GPSCenter(position));
-   parts.push_back(GPSLeft());
-   parts.push_back(GPSRight());
-
-   return parts;
-}
 
 /*
 * GPS::draw
@@ -84,18 +76,6 @@ void GPS::draw(ogstream& gout)
 
 // HUBBLE FUNCTIONS
 
-
-vector<Part> Hubble::getParts()
-{
-   vector<Part> parts;
-
-   parts.push_back(HubbleTelescope());
-   parts.push_back(HubbleComputer());
-   parts.push_back(HubbleLeft());
-   parts.push_back(HubbleRight());
-
-   return parts;
-}
 
 void Hubble::moveFacingDirection()
 {
@@ -116,17 +96,6 @@ void Hubble::draw(ogstream& gout)
 // DRAGON FUNCTIONS
 
 
-vector<Part> Dragon::getParts()
-{
-   vector<Part> parts;
-
-   parts.push_back(CrewDragonCenter());
-   parts.push_back(CrewDragonLeft());
-   parts.push_back(CrewDragonRight());
-
-   return parts;
-}
-
 /*
 * Dragon::draw
 * Uses the drawCrewDragon function from uiDraw.
@@ -139,17 +108,6 @@ void Dragon::draw(ogstream& gout)
 
 // STARLINK FUNCTIONS
 
-
-
-vector<Part> Starlink::getParts()
-{
-   vector<Part> parts;
-
-   parts.push_back(StarlinkBody());
-   parts.push_back(StarlinkArray());
-
-   return parts;
-}
 
 /*
 * Starlink::draw

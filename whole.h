@@ -20,7 +20,6 @@ public:
    Whole() {};
 
    void destroy(list<Satellite*>& satellites);
-   virtual vector<Part> getParts() { vector<Part> parts; return parts; }
    Position offsetPosition(Position pos);
 };
 
@@ -67,7 +66,6 @@ public:
    }
 
    void destroy(list<Satellite*>& satellites);
-   vector<Part> getParts();
    void draw(ogstream& gout);
 };
 
@@ -89,7 +87,6 @@ public:
       numFragments = 0;
    }
    
-   vector<Part> getParts();
    void moveFacingDirection();
    void draw(ogstream& gout);
 };
@@ -112,7 +109,6 @@ public:
       numFragments = 2;
    }
 
-   vector<Part> getParts();
    void draw(ogstream& gout);
 };
 
@@ -134,7 +130,6 @@ public:
       numFragments = 2;
    }
 
-   vector<Part> getParts();
    void draw(ogstream& gout);
 };
 
