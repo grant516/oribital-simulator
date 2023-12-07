@@ -5,7 +5,6 @@
 #include "uiInteract.h" // for INTERFACE
 #include "uiDraw.h"     // for RANDOM and DRAW*
 #include "position.h"      // for POINT
-#include "physics.h"      // for PHYSICS
 #include "test.h"
 #include "satellite.h"
 #include "star.h"
@@ -15,6 +14,8 @@
 #include <math.h>
 using namespace std;
 
+#define STARSNUM 200
+
 /*************************************************************************
  * Sim
  * Contains the elements needed for an instance of the simulation
@@ -22,12 +23,10 @@ using namespace std;
 class Sim
 {
 public:
-   // old stuff starts here
+
    Sim(Position ptUpperRight) :
       ptUpperRight(ptUpperRight),
   
-      hubblePhysics(24, 60, 30, -3100.0, 0.0, -9.80665), // We are using this to calculate time, but it needs to be REPLACED
-
       sputnik(Position(-36515095.13, 21082000.0), Direction(), Velocity(2050.0, 2684.68)),
       gps0(Position(0.0, 26560000.0), Direction(), Velocity(-3880.0, 0.0)),
       gps1(Position(23001634.72, 13280000.0), Direction(), Velocity(-1940.00, 3360.18)),
@@ -38,18 +37,24 @@ public:
       hubble(Position(0.0, -42164000.0), Direction(), Velocity(3100.0, 0.0)),
       dragon(Position(0.0, 8000000.0), Direction(), Velocity(-7900.0, 0.0)),
       starlink(Position(0.0, -13020000.0), Direction(), Velocity(5800.0, 0.0)),
-      ship(Position(-45000000.0, 45000000.0), Direction(), Velocity(0.0, -2000.0)) // Document says position should start at (-450px, 450px), but I guessed in setting it by meters. How many meters is 450px?
+      ship(Position(-45000000.0, 45000000.0), Direction(), Velocity(0.0, -2000.0)) 
 
    {
-      ptHubble.setMetersX(0.0);
-      ptHubble.setMetersY(-42164000.0);
-      
+      for (int i = 0; i < STARSNUM; i++)
+      {
+         stars[i].reset(random(-500, 500), random(-500, 500));
+      }
+
       angleShip = 0.0;
       phaseStar = 0;
+      
+      time = (hoursPerDay * minutesPerHour) / framesPerSecond;
    }
 
-   Physics hubblePhysics;
-   Position ptHubble;
+   double hoursPerDay = 24;
+   double minutesPerHour = 60;
+   double framesPerSecond = 30;
+   double time;
    Position ptUpperRight;
 
    Sputnik sputnik;
@@ -64,8 +69,6 @@ public:
    Starlink starlink;
    Ship ship;
 
-
-
    unsigned char phaseStar;
 
    double const planetRadius = 6378000;
@@ -73,6 +76,8 @@ public:
 
    // old stuff ends here
    Earth earth;
+   Star stars[STARSNUM];
+   //Star star;
 
    // List of satellites
    list<Satellite*> satellites = 
@@ -89,12 +94,6 @@ public:
       &dragon,
       &starlink
    };
-
-
-private:
-   // array of Satellites
-   // Satellite satellites[];
-   // stars[];
    
 };
 
@@ -138,26 +137,16 @@ void callBack(const Interface* pUI, void* p)
 
       if (pUI->isSpace())
       {
-         Velocity bulletVelocity;
-         bulletVelocity.hrzCompVel(pSim->ship.getFacingDirection().getRadians(), 9000);
-         bulletVelocity.vertCompVel(pSim->ship.getFacingDirection().getRadians(), 9000);
-         bulletVelocity.addVelocity(pSim->ship.getVelocity());
-       
-         Projectile* p = new Projectile(bulletVelocity,
-            pSim->ship.getFacingDirection(),
-            pSim->ship.getFrontPosition());
-         
-         pSim->satellites.emplace_back(p);
+         pSim->ship.fireProjectile(pSim->satellites);
       }
    }
 
 
    //Physics
-   double time = pSim->hubblePhysics.getTimeFrame();
 
    for (auto sat = pSim->satellites.begin(); sat != pSim->satellites.end(); ++sat)
    {
-      (*sat)->movePosition(time, pSim->earth.getRadiusMeters(), 
+      (*sat)->movePosition(pSim->time, pSim->earth.getRadiusMeters(),
          pSim->earth.getGravity());
       (*sat)->moveFacingDirection();
       (*sat)->expire();
@@ -219,11 +208,8 @@ void callBack(const Interface* pUI, void* p)
          ++sat;
    }
 
-   double pi = 2 * asin(1.0);
-
    // rotate the earth
    pSim->earth.rotate();
-   pSim->phaseStar++;
 
    //
    // draw everything
@@ -236,7 +222,8 @@ void callBack(const Interface* pUI, void* p)
    for (auto sat : pSim->satellites)
       sat->draw(gout);
 
-
+   for (int i = 0; i < STARSNUM; i++)
+      pSim->stars[i].draw(gout);
    // draw the earth
    pSim->earth.draw(gout);
 }

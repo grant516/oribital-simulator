@@ -8,24 +8,17 @@ class Star
 {
 private:
 	Position pos;
-	unsigned char phase = random(0, 255);  // phase of the star's blinking
+	unsigned char phase;  // phase of the star's blinking
 
 public:
+	Star() { phase = random(0, 255); }
 	Star(int x, int y)
 	{
-		pos = Position(x, y);
+		phase = random(0, 255);
+		pos.setPixelsX(x);
+		pos.setPixelsY(y);
 	}
 	void reset(int width, int height);
-	void draw(ogstream gout);
-
-	Position getPosition()
-	{
-		return pos;
-	}
-
-	unsigned char getPhase()
-	{
-		return phase;
-	}
+	void draw(ogstream& gout);
 };
 
