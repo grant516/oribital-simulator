@@ -2,11 +2,10 @@
 #include "satellite.h"
 #include "uiDraw.h"
 #include "parts.h"
-#include <list>
-#include <vector>
 #include "projectile.h"
+#include "fragment.h"
+#include <list>
 using namespace std;
-
 
 
 /*************************************************************************
@@ -19,7 +18,7 @@ class Whole : public Satellite
 public:
    Whole() {};
 
-   virtual vector<Part> getParts() { vector<Part> parts; return parts; }
+   void destroy(list<Satellite*>& satellites);
    Position offsetPosition(Position pos);
 };
 
@@ -41,6 +40,7 @@ public:
       numFragments = 4;
    }
 
+   void destroy(list<Satellite*>& satellites);
    void moveFacingDirection();
    void draw(ogstream& gout);
 };
@@ -64,7 +64,7 @@ public:
       numFragments = 2;
    }
 
-   vector<Part> getParts();
+   void destroy(list<Satellite*>& satellites);
    void draw(ogstream& gout);
 };
 
@@ -86,7 +86,6 @@ public:
       numFragments = 0;
    }
    
-   vector<Part> getParts();
    void moveFacingDirection();
    void draw(ogstream& gout);
 };
@@ -109,7 +108,6 @@ public:
       numFragments = 2;
    }
 
-   vector<Part> getParts();
    void draw(ogstream& gout);
 };
 
@@ -131,7 +129,6 @@ public:
       numFragments = 2;
    }
 
-   vector<Part> getParts();
    void draw(ogstream& gout);
 };
 

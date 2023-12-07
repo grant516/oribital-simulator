@@ -73,6 +73,18 @@ double Satellite::getGravity(double x, double y)
    return gh;
 }
 
+Position Satellite::getFrontPosition()
+{
+   Position frontPosition = position;
+
+   double x = position.getPixelsX() + 19 * sin(facingDirection.getRadians());
+   double y = position.getPixelsY() + 19 * cos(facingDirection.getRadians());
+   frontPosition.setPixelsX(x);
+   frontPosition.setPixelsY(y);
+
+   return frontPosition;
+}
+
 /*
 * Height above the Earth
 * h = height above the earth in meters
