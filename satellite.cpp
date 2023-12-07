@@ -1,17 +1,20 @@
 #include "satellite.h"
 #include <math.h>
 
+/*
+* This function is responsible for setting the satellite to dead
+* after it collides with another object.
+*/
 void Satellite::kill()
 {
    dead = true;
 }
 
-void Satellite::draw(ogstream &gout)
-{
-
-}
-
-
+/*
+* This function is responsible for how the satellites move around the planet.
+* it needs to know the time, radius or the planet it orbits, and the gravity
+* of the planet it orbits as well.
+*/
 void Satellite::movePosition(double time, double planetRadius, double planetGravity)
 {
    // calculate earth's gravity pull for both ddx and ddy
@@ -40,18 +43,28 @@ void Satellite::movePosition(double time, double planetRadius, double planetGrav
    vertDistFormula(time);
 }
 
-
+/*
+* This function is responsible for the direction of that the satellite is
+* facing as it travels through the void we call space.
+*/
 void Satellite::moveFacingDirection()
 {
    facingDirection.setRadians(dirGravityPull(0.0, 0.0) + PI / 2); // Face the earth
 }
 
+/*
+* This function is responsible for getting the altitude of the satellite.
+*/
 double Satellite::getAltitude(double x, double y)
 {
    double h = sqrt((x * x) + (y * y)) - planetRadius;
    return h;
 }
 
+/* 
+* This function is responsible for getting the force of gravity that is 
+* currently effecting the satellite at it's current location in space.
+*/
 double Satellite::getGravity(double x, double y)
 {
    double h = getAltitude(x, y);
@@ -59,7 +72,6 @@ double Satellite::getGravity(double x, double y)
       (planetRadius / (planetRadius + h)));
    return gh;
 }
-
 
 Position Satellite::getFrontPosition()
 {

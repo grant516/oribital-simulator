@@ -13,6 +13,7 @@ using namespace std;
 class Satellite
 {
 protected:
+   Position frontPosition;
    Velocity velocity;
    Position position;
    Direction movementDirection;
@@ -23,6 +24,8 @@ protected:
    double numFragments;
    double planetRadius = 6378000.0; // These should be removed eventually because they belong to Earth
    double gravity = -9.80665; // --> this too
+
+   virtual void setFrontPosition() { };
 
 public:
    Satellite() {}
@@ -37,7 +40,7 @@ public:
    virtual bool isDead() { return dead; }
    virtual Position getPosition() { return position; }
    virtual void kill();
-   virtual void draw(ogstream &gout);
+   virtual void draw(ogstream& gout) {};
    virtual void movePosition(double time, double planetRadius, double planetGravity);
    virtual void moveFacingDirection();
    virtual double getAltitude(double x, double y);

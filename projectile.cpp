@@ -6,3 +6,11 @@ void Projectile::addFivePixels()
 
    // add acording to radian value
 }
+
+void Projectile::expire()
+{
+   if (time >= 70)
+      kill();
+   else
+      time++;
+};

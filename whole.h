@@ -4,9 +4,8 @@
 #include "parts.h"
 #include "projectile.h"
 #include "fragment.h"
-#include <vector>
+#include <list>
 using namespace std;
-
 
 
 /*************************************************************************
@@ -159,8 +158,10 @@ public:
    void stopMainThruster() { thrusterOn = false; }
    void fireLeftThruster() { facingDirection.rotate(-0.1); }
    void fireRightThruster() { facingDirection.rotate(0.1); }
+   void fireProjectile(list<Satellite*>& satellites);
 
-   Projectile* shootProjectile();
+protected:
+   void setFrontPosition();
 
 private:
    bool thrusterOn = false;
