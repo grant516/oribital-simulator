@@ -19,8 +19,8 @@ void Whole::destroy(list<Satellite*>& satellites)
 Position Whole::offsetPosition(Position pos)
 {
    // Set x and y 5 pixels away randomly
-   pos.setPixelsX(pos.getPixelsX() + random(-5, 5));
-   pos.setPixelsY(pos.getPixelsY() + random(-5, 5));
+   pos.setPixelsX(pos.getPixelsX() + random(-25, 25));
+   pos.setPixelsY(pos.getPixelsY() + random(-25, 25));
 
    return pos;
 }
@@ -53,9 +53,9 @@ void Sputnik::draw(ogstream& gout)
 void GPS::destroy(list<Satellite*>& satellites)
 {
    // create all the gps parts
-   GPSCenter* center = new GPSCenter(position, velocity, movementDirection);
-   GPSLeft* left = new GPSLeft(position, velocity, movementDirection);
-   GPSRight* right = new GPSRight(position, velocity, movementDirection);
+   GPSCenter* center = new GPSCenter(offsetPosition(position), velocity, movementDirection);
+   GPSLeft* left = new GPSLeft(offsetPosition(position), velocity, movementDirection);
+   GPSRight* right = new GPSRight(offsetPosition(position), velocity, movementDirection);
 
    // add to list
    satellites.emplace_back(center);

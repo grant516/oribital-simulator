@@ -183,9 +183,6 @@ void callBack(const Interface* pUI, void* p)
 
             if (distance <= ((*sat1)->getRadius() + (*sat2)->getRadius()))
             {
-               
-               // Add the parts to the list of satellites
-
                // kill both satellites
                (*sat1)->kill();
                (*sat2)->kill();
