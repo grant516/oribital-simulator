@@ -65,8 +65,8 @@ Position Satellite::getFrontPosition()
 {
    Position frontPosition = position;
 
-   int x = position.getPixelsX() + 19 * sin(facingDirection.getRadians());
-   int y = position.getPixelsY() + 19 * cos(facingDirection.getRadians());
+   double x = position.getPixelsX() + 19 * sin(facingDirection.getRadians());
+   double y = position.getPixelsY() + 19 * cos(facingDirection.getRadians());
    frontPosition.setPixelsX(x);
    frontPosition.setPixelsY(y);
 

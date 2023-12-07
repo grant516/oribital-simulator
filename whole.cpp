@@ -1,5 +1,23 @@
 #include "whole.h"
 
+void Whole::destroy(list<Satellite*>& satellites)
+{
+   /*
+   // get the parts
+   vector<Part> parts = getParts();
+
+   // create fragment for numFragments
+   for (int i = 0; i < numFragments; i++)
+   {
+      // create a fragment
+      Fragment* f = new Fragment(position, movementDirection, velocity);
+
+      // add to list
+      satellites.emplace_back(*f);
+   }
+   */
+}
+
 Position Whole::offsetPosition(Position pos)
 {
    // Set x and y 5 pixels away randomly
@@ -11,6 +29,10 @@ Position Whole::offsetPosition(Position pos)
 
 
 // SPUTNIK FUNCTIONS
+
+void Sputnik::destroy(list<Satellite*>& satellites)
+{
+}
 
 void Sputnik::moveFacingDirection()
 {
@@ -30,12 +52,20 @@ void Sputnik::draw(ogstream& gout)
 // GPS FUNCTIONS
 
 
+void GPS::destroy(list<Satellite*>& satellites)
+{
+   // create all the gps parts
+   GPSCenter center = GPSCenter(position);
+
+   // add to list
+   satellites.emplace_back(center);
+}
 
 vector<Part> GPS::getParts()
 {
    vector<Part> parts;
    
-   parts.push_back(GPSCenter());
+   parts.push_back(GPSCenter(position));
    parts.push_back(GPSLeft());
    parts.push_back(GPSRight());
 

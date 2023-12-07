@@ -94,6 +94,6 @@ public:
 class GPSCenter : public Part
 {
 public:
-   GPSCenter() { radius = 7; };
+   GPSCenter(Position pos) { position = pos; radius = 7; };
    void draw(ogstream& gout) { gout.drawGPSCenter(position, facingDirection.getRadians()); }
 };

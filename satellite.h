@@ -1,11 +1,14 @@
 #pragma once
 #include <cassert>
+#include <list>
 #include "velocity.h"
 #include "position.h"
 #include "direction.h"
 #include "uiDraw.h"
 #include "uiInteract.h"
 #include "acceleration.h"
+
+using namespace std;
 
 class Satellite
 {
@@ -45,6 +48,7 @@ public:
    virtual void expire() {};
    virtual void setMovementDirection(Direction d) { movementDirection = d; }
    virtual Position getFrontPosition();
+   virtual void destroy(list<Satellite*>& satellites) {};
 
 protected:
    virtual double getHtAbovePlanet(double planetRadius);

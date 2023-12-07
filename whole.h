@@ -3,6 +3,7 @@
 #include "uiDraw.h"
 #include "parts.h"
 #include "projectile.h"
+#include "fragment.h"
 #include <vector>
 using namespace std;
 
@@ -18,6 +19,7 @@ class Whole : public Satellite
 public:
    Whole() {};
 
+   void destroy(list<Satellite*>& satellites);
    virtual vector<Part> getParts() { vector<Part> parts; return parts; }
    Position offsetPosition(Position pos);
 };
@@ -40,6 +42,7 @@ public:
       numFragments = 4;
    }
 
+   void destroy(list<Satellite*>& satellites);
    void moveFacingDirection();
    void draw(ogstream& gout);
 };
@@ -63,6 +66,7 @@ public:
       numFragments = 2;
    }
 
+   void destroy(list<Satellite*>& satellites);
    vector<Part> getParts();
    void draw(ogstream& gout);
 };
