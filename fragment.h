@@ -6,8 +6,11 @@
 
 class Fragment : public Satellite
 {
+private:
+   double time = 0;
+
 public:
-   Fragment(Position pos, Direction dir, Velocity vel) 
+   Fragment(Position pos, Velocity vel, Direction dir)
    {
       position = pos;
       facingDirection = dir;
@@ -16,5 +19,5 @@ public:
    };
 
    void draw(ogstream& gout) { gout.drawFragment(position, facingDirection.getRadians()); }
-
+   void expire();
 };

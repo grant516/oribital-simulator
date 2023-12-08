@@ -91,6 +91,7 @@ public:
    
    void updateFacingDirection();
    void draw(ogstream& gout);
+   void destroy(list<Satellite*>& satellites);
 };
 
 
@@ -112,6 +113,7 @@ public:
    }
 
    void draw(ogstream& gout);
+   void destroy(list<Satellite*>& satellites);
 };
 
 
@@ -133,6 +135,7 @@ public:
    }
 
    void draw(ogstream& gout);
+   void destroy(list<Satellite*>& satellites);
 };
 
 

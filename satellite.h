@@ -24,6 +24,7 @@ protected:
    double numFragments;
    double planetRadius = 6378000.0; // These should be removed eventually because they belong to Earth
    double gravity = -9.80665; // --> this too
+   double expireTime = 70;
 
 public:
    Satellite() {}
