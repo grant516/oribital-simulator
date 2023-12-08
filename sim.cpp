@@ -146,9 +146,10 @@ void callBack(const Interface* pUI, void* p)
 
    for (auto sat = pSim->satellites.begin(); sat != pSim->satellites.end(); ++sat)
    {
-      (*sat)->movePosition(pSim->time, pSim->earth.getRadiusMeters(),
+      (*sat)->updatePosition(pSim->time, pSim->earth.getRadiusMeters(),
          pSim->earth.getGravity());
-      (*sat)->moveFacingDirection();
+      (*sat)->updateMovementDirection();
+      (*sat)->updateFacingDirection();
       (*sat)->expire();
    }
 

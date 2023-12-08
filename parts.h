@@ -177,7 +177,7 @@ public:
       velocity = vel;
       facingDirection = dir;
       movementDirection = dir;
-      radius = 7; 
+      radius = 7;
    };
    void draw(ogstream& gout) { gout.drawGPSCenter(position, facingDirection.getRadians()); }
 };

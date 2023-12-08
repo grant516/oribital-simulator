@@ -13,7 +13,7 @@ using namespace std;
 class Satellite
 {
 protected:
-   Position frontPosition;
+   Position launchPosition;
    Velocity velocity;
    Position position;
    Direction movementDirection;
@@ -24,8 +24,6 @@ protected:
    double numFragments;
    double planetRadius = 6378000.0; // These should be removed eventually because they belong to Earth
    double gravity = -9.80665; // --> this too
-
-   virtual void setFrontPosition() { };
 
 public:
    Satellite() {}
@@ -41,8 +39,9 @@ public:
    virtual Position getPosition() { return position; }
    virtual void kill();
    virtual void draw(ogstream& gout) {};
-   virtual void movePosition(double time, double planetRadius, double planetGravity);
-   virtual void moveFacingDirection();
+   virtual void updatePosition(double time, double planetRadius, double planetGravity);
+   virtual void updateMovementDirection();
+   virtual void updateFacingDirection() {};
    virtual double getAltitude(double x, double y);
    virtual double getGravity(double x, double y);
    virtual Direction getFacingDirection() { return facingDirection; }
@@ -50,7 +49,7 @@ public:
    virtual Velocity getVelocity() { return velocity; }
    virtual void expire() {};
    virtual void setMovementDirection(Direction d) { movementDirection = d; }
-   virtual Position getFrontPosition();
+   virtual Position getLaunchPosition(int distance, Direction difference);
    virtual void destroy(list<Satellite*>& satellites) {};
 
 protected:

@@ -15,7 +15,7 @@ void Satellite::kill()
 * it needs to know the time, radius or the planet it orbits, and the gravity
 * of the planet it orbits as well.
 */
-void Satellite::movePosition(double time, double planetRadius, double planetGravity)
+void Satellite::updatePosition(double time, double planetRadius, double planetGravity)
 {
    // calculate earth's gravity pull for both ddx and ddy
    // get the height away from the earth
@@ -47,9 +47,9 @@ void Satellite::movePosition(double time, double planetRadius, double planetGrav
 * This function is responsible for the direction of that the satellite is
 * facing as it travels through the void we call space.
 */
-void Satellite::moveFacingDirection()
+void Satellite::updateMovementDirection()
 {
-   facingDirection.setRadians(dirGravityPull(0.0, 0.0) + PI / 2); // Face the earth
+   movementDirection.setRadians(dirGravityPull(0.0, 0.0) + PI / 2); // Face the earth
 }
 
 /*
@@ -73,16 +73,14 @@ double Satellite::getGravity(double x, double y)
    return gh;
 }
 
-Position Satellite::getFrontPosition()
+Position Satellite::getLaunchPosition(int distance, Direction difference)
 {
-   Position frontPosition = position;
+   double x = position.getPixelsX() + distance * sin(facingDirection.getRadians() + difference.getRadians());
+   double y = position.getPixelsY() + distance * cos(facingDirection.getRadians() + difference.getRadians());
+   launchPosition.setPixelsX(x);
+   launchPosition.setPixelsY(y);
 
-   double x = position.getPixelsX() + 19 * sin(facingDirection.getRadians());
-   double y = position.getPixelsY() + 19 * cos(facingDirection.getRadians());
-   frontPosition.setPixelsX(x);
-   frontPosition.setPixelsY(y);
-
-   return frontPosition;
+   return launchPosition;
 }
 
 /*
