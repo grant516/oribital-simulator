@@ -38,15 +38,11 @@ public:
    virtual Position getPosition() const { return position; };
    virtual void kill();
    virtual void draw(ogstream& gout) const {};
-   virtual void updatePosition(double time, double planetRadius, 
-      double planetGravity);
+   virtual void updatePosition(double time, double const planetRadius, 
+      double const planetGravity);
    virtual void updateMovementDirection();
    virtual void updateFacingDirection() {};
-   virtual Direction getFacingDirection() const { return facingDirection; };
-   virtual Direction getMovementDirection() const { return movementDirection; }
-   virtual Velocity getVelocity() const { return velocity; };
    virtual void expire() {};
-   virtual Position getLaunchPosition(int distance, Direction difference);
    virtual void destroy(list<Satellite*>& satellites) {};
 
 protected:
@@ -54,6 +50,10 @@ protected:
    virtual void hrzDistFormula(double timeFrame);
    virtual void vertDistFormula(double timeFrame);
    virtual double dirGravityPull(double xe, double ye);
+   virtual Direction getMovementDirection() const { return movementDirection; }
+   virtual Position getLaunchPosition(int distance, Direction& difference);
+   virtual Velocity getVelocity() const { return velocity; };
+   virtual Direction getFacingDirection() const { return facingDirection; };
 };
 
 

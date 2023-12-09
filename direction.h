@@ -21,7 +21,6 @@ public:
    void setRight() { radians = PI / 2; }
    void rotate(double amount) { radians += amount; }
 
-
    double getRadians() const { return radians; }
    double getDegrees() const { return radians * 180.0 / PI ; }
    double getDx() const { return cos(radians); }

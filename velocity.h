@@ -16,19 +16,13 @@ public:
       dy = vy; 
    }
 
-   void assign(Velocity velocity) {}
-
    virtual double getDx() const { return(dx); }
    virtual double getDy() const { return(dy); }
-
    virtual void setDx(double xSpeed) { dx = xSpeed; }
    virtual void setDy(double ySpeed) { dy = ySpeed; }
-
-   void addDx(double dxAdded) { dx += dxAdded; }
-   void addDy(double dyAdded) { dy += dyAdded; }
-   void addVelocity(Velocity velocity);
    virtual void updateVelocity(double ddx, double ddy, double t);
 
+   void addVelocity(Velocity &velocity);
    void hrzVelWConstA(double ddx, double time);
    void vertVelWConstA(double ddy, double time);
    void hrzCompVel(double angle, double speed);

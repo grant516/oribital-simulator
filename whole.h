@@ -17,10 +17,11 @@ class Whole : public Satellite
 {
 public:
    Whole() {};
-
    void destroy(list<Satellite*>& satellites) {};
-   Direction offsetDirection();
-   Velocity boostVelocity(Velocity vel, Direction dir);
+
+protected:
+   virtual Direction offsetDirection();
+   virtual Velocity boostVelocity(Velocity vel, Direction dir);
 };
 
 /*************************************************************************

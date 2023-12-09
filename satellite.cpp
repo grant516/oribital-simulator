@@ -15,8 +15,8 @@ void Satellite::kill()
 * it needs to know the time, radius or the planet it orbits, and the gravity
 * of the planet it orbits as well.
 */
-void Satellite::updatePosition(double time, double planetRadius, 
-   double planetGravity)
+void Satellite::updatePosition(double time, double const planetRadius, 
+   double const planetGravity)
 {
    // get the height away from the earth
    double height = getHtAbovePlanet(planetRadius);
@@ -56,7 +56,7 @@ void Satellite::updateMovementDirection()
 * Determines the position of a part or projectile that is launched from the
 * satellite.
 */
-Position Satellite::getLaunchPosition(int distance, Direction difference)
+Position Satellite::getLaunchPosition(int distance, Direction &difference)
 {
    double x = position.getPixelsX() + distance * 
       sin(facingDirection.getRadians() + difference.getRadians());

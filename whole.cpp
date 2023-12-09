@@ -264,8 +264,9 @@ void Ship::fireProjectile(list<Satellite*>& satellites)
    bulletVelocity.vertCompVel(facingDirection.getRadians(), 9000);
    bulletVelocity.addVelocity(velocity);
 
+   Direction dir;
    Projectile* p = new Projectile(bulletVelocity, facingDirection,
-      getLaunchPosition(19, 0));
+      getLaunchPosition(19, dir));
 
    satellites.emplace_back(p);
 }

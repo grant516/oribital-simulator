@@ -17,7 +17,7 @@ void Velocity::updateVelocity(double ddx, double ddy, double t)
 * Adds a velocity to the current velocity
 * velocity = velocity to be added
 */
-void Velocity::addVelocity(Velocity velocity)
+void Velocity::addVelocity(Velocity &velocity)
 {
    dx += velocity.getDx();
    dy += velocity.getDy();
