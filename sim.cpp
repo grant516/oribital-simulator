@@ -114,9 +114,9 @@ void callBack(const Interface* pUI, void* p)
    //
    // INPUT
    //
+
    if (pSim->ship.isDead() == false)
    {
-      // Get input
       if (pUI->isUp())
       {
          pSim->ship.fireMainThruster();
@@ -142,8 +142,9 @@ void callBack(const Interface* pUI, void* p)
       }
    }
 
-
-   //Physics
+   //
+   // PHYSICS
+   //
 
    for (auto sat = pSim->satellites.begin(); 
       sat != pSim->satellites.end(); ++sat)
@@ -155,7 +156,10 @@ void callBack(const Interface* pUI, void* p)
       (*sat)->expire();
    }
 
-   // check for collisions
+   //
+   // COLLISIONS
+   //
+
    for (auto sat1 = pSim->satellites.begin(); 
       sat1 != pSim->satellites.end(); ++sat1)
    {
@@ -199,7 +203,7 @@ void callBack(const Interface* pUI, void* p)
       }
    }
 
-   // erase dead things
+   // Erase dead things
    for (auto sat = pSim->satellites.begin(); sat != pSim->satellites.end();)
    {
       if ((*sat)->isDead())
