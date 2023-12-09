@@ -20,6 +20,8 @@ public:
 
    void destroy(list<Satellite*>& satellites);
    Position offsetPosition(Position pos);
+   Direction offsetDirection(Direction dir);
+   Velocity boostVelocity(Velocity vel);
 };
 
 /*************************************************************************
@@ -41,7 +43,7 @@ public:
    }
 
    void destroy(list<Satellite*>& satellites);
-   void moveFacingDirection();
+   void updateFacingDirection();
    void draw(ogstream& gout);
 };
 
@@ -64,6 +66,7 @@ public:
       numFragments = 2;
    }
 
+   void updateFacingDirection();
    void destroy(list<Satellite*>& satellites);
    void draw(ogstream& gout);
 };
@@ -86,8 +89,9 @@ public:
       numFragments = 0;
    }
    
-   void moveFacingDirection();
+   void updateFacingDirection();
    void draw(ogstream& gout);
+   void destroy(list<Satellite*>& satellites);
 };
 
 
@@ -109,6 +113,7 @@ public:
    }
 
    void draw(ogstream& gout);
+   void destroy(list<Satellite*>& satellites);
 };
 
 
@@ -130,6 +135,7 @@ public:
    }
 
    void draw(ogstream& gout);
+   void destroy(list<Satellite*>& satellites);
 };
 
 
@@ -151,17 +157,13 @@ public:
    }
    void draw(ogstream& gout);
 
-   void movePosition(double time, double planetRadius, double planetGravity);
-   void moveFacingDirection();
+   void updatePosition(double time, double planetRadius, double planetGravity);
 
    void fireMainThruster() { thrusterOn = true; }
    void stopMainThruster() { thrusterOn = false; }
    void fireLeftThruster() { facingDirection.rotate(-0.1); }
    void fireRightThruster() { facingDirection.rotate(0.1); }
    void fireProjectile(list<Satellite*>& satellites);
-
-protected:
-   void setFrontPosition();
 
 private:
    bool thrusterOn = false;

@@ -146,9 +146,10 @@ void callBack(const Interface* pUI, void* p)
 
    for (auto sat = pSim->satellites.begin(); sat != pSim->satellites.end(); ++sat)
    {
-      (*sat)->movePosition(pSim->time, pSim->earth.getRadiusMeters(),
+      (*sat)->updatePosition(pSim->time, pSim->earth.getRadiusMeters(),
          pSim->earth.getGravity());
-      (*sat)->moveFacingDirection();
+      (*sat)->updateMovementDirection();
+      (*sat)->updateFacingDirection();
       (*sat)->expire();
    }
 
@@ -216,12 +217,13 @@ void callBack(const Interface* pUI, void* p)
    Position pt;
    ogstream gout(pt);
 
+   for (int i = 0; i < STARSNUM; i++)
+      pSim->stars[i].draw(gout);
+
    // draw satellites
    for (auto sat : pSim->satellites)
       sat->draw(gout);
 
-   for (int i = 0; i < STARSNUM; i++)
-      pSim->stars[i].draw(gout);
    // draw the earth
    pSim->earth.draw(gout);
 }

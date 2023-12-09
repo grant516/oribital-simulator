@@ -146,6 +146,7 @@
     <ClCompile Include="satellite.cpp" />
     <ClCompile Include="sim.cpp" />
     <ClCompile Include="position.cpp" />
+    <ClCompile Include="fragment.cpp" />
     <ClCompile Include="star.cpp" />
     <ClCompile Include="test.cpp" />
     <ClCompile Include="testSatellite.cpp" />

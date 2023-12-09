@@ -9,7 +9,7 @@ void Projectile::addFivePixels()
 
 void Projectile::expire()
 {
-   if (time >= 70)
+   if (time >= expireTime)
       kill();
    else
       time++;
