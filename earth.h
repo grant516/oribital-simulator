@@ -15,11 +15,11 @@ private:
    double angularVelocity = (2 * PI) / 1800;
 
 public:
-   double getRadiusMeters() { return planetRadiusMeters; }
-   double getRadiusPixels() { return planetRadiusPixels; }
-   double getGravity() { return gravity; }
-   Position getPosition() { return position; }
+   double getRadiusMeters() const { return planetRadiusMeters; }
+   double getRadiusPixels() const { return planetRadiusPixels; }
+   double getGravity() const { return gravity; }
+   Position getPosition() const { return position; }
    void rotate() { angle -= angularVelocity; } // to be called once per frame
-   void draw(ogstream &gout) { gout.drawEarth(position, angle); }
+   void draw(ogstream &gout) const { gout.drawEarth(position, angle); }
 };
 

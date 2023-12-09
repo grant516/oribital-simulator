@@ -22,8 +22,6 @@ protected:
    bool dead = false;
    double radius;
    double numFragments;
-   double planetRadius = 6378000.0; // These should be removed eventually because they belong to Earth
-   double gravity = -9.80665; // --> this too
    double expireTime = 70;
 
 public:
@@ -35,26 +33,24 @@ public:
       facingDirection = d;
    }
 
-   virtual double getRadius() { return radius; }
-   virtual bool isDead() { return dead; }
-   virtual Position getPosition() { return position; }
+   virtual double getRadius() const { return radius; };
+   virtual bool isDead() const { return dead; };
+   virtual Position getPosition() const { return position; };
    virtual void kill();
-   virtual void draw(ogstream& gout) {};
-   virtual void updatePosition(double time, double planetRadius, double planetGravity);
+   virtual void draw(ogstream& gout) const {};
+   virtual void updatePosition(double time, double planetRadius, 
+      double planetGravity);
    virtual void updateMovementDirection();
    virtual void updateFacingDirection() {};
-   virtual double getAltitude(double x, double y);
-   virtual double getGravity(double x, double y);
-   virtual Direction getFacingDirection() { return facingDirection; }
-   virtual Direction getMovementDirection() { return movementDirection; }
-   virtual Velocity getVelocity() { return velocity; }
+   virtual Direction getFacingDirection() const { return facingDirection; };
+   virtual Direction getMovementDirection() const { return movementDirection; }
+   virtual Velocity getVelocity() const { return velocity; };
    virtual void expire() {};
-   virtual void setMovementDirection(Direction d) { movementDirection = d; }
    virtual Position getLaunchPosition(int distance, Direction difference);
    virtual void destroy(list<Satellite*>& satellites) {};
 
 protected:
-   virtual double getHtAbovePlanet(double planetRadius);
+   virtual double getHtAbovePlanet(double planetRadius) const;
    virtual void hrzDistFormula(double timeFrame);
    virtual void vertDistFormula(double timeFrame);
    virtual double dirGravityPull(double xe, double ye);

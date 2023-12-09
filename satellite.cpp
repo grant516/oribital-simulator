@@ -52,27 +52,6 @@ void Satellite::updateMovementDirection()
    movementDirection.setRadians(dirGravityPull(0.0, 0.0) + PI / 2); // Face the earth
 }
 
-/*
-* This function is responsible for getting the altitude of the satellite.
-*/
-double Satellite::getAltitude(double x, double y)
-{
-   double h = sqrt((x * x) + (y * y)) - planetRadius;
-   return h;
-}
-
-/* 
-* This function is responsible for getting the force of gravity that is 
-* currently effecting the satellite at it's current location in space.
-*/
-double Satellite::getGravity(double x, double y)
-{
-   double h = getAltitude(x, y);
-   double gh = gravity * ((planetRadius / (planetRadius + h)) * 
-      (planetRadius / (planetRadius + h)));
-   return gh;
-}
-
 Position Satellite::getLaunchPosition(int distance, Direction difference)
 {
    double x = position.getPixelsX() + distance * sin(facingDirection.getRadians() + difference.getRadians());
@@ -90,7 +69,7 @@ Position Satellite::getLaunchPosition(int distance, Direction difference)
 * y = vertical position of the satellite where the center of the earth is 0
 * planetRadius = radius of the planet (earth: 6,378,000 m)
 */
-double Satellite::getHtAbovePlanet(double planetRadius)
+double Satellite::getHtAbovePlanet(double planetRadius) const
 {
    double h = sqrt((position.getMetersX() * position.getMetersX()) 
       + (position.getMetersY() * position.getMetersY())) - planetRadius;

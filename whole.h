@@ -10,18 +10,17 @@ using namespace std;
 
 /*************************************************************************
  * Whole
- * This class is the base class for all whole satellites. It inherits from the Satellite class.
- * It is used to organize all whole satellites together.
+ * This class is the base class for all whole satellites. It inherits from 
+ * the Satellite class. It is used to organize all whole satellites together.
  *************************************************************************/
 class Whole : public Satellite
 {
 public:
    Whole() {};
 
-   void destroy(list<Satellite*>& satellites);
-   Position offsetPosition(Position pos);
-   Direction offsetDirection(Direction dir);
-   Velocity boostVelocity(Velocity vel);
+   void destroy(list<Satellite*>& satellites) {};
+   Direction offsetDirection();
+   Velocity boostVelocity(Velocity vel, Direction dir);
 };
 
 /*************************************************************************
@@ -44,7 +43,7 @@ public:
 
    void destroy(list<Satellite*>& satellites);
    void updateFacingDirection();
-   void draw(ogstream& gout);
+   void draw(ogstream& gout) const;
 };
 
 
@@ -68,7 +67,7 @@ public:
 
    void updateFacingDirection();
    void destroy(list<Satellite*>& satellites);
-   void draw(ogstream& gout);
+   void draw(ogstream& gout) const;
 };
 
 
@@ -90,14 +89,15 @@ public:
    }
    
    void updateFacingDirection();
-   void draw(ogstream& gout);
+   void draw(ogstream& gout) const;
    void destroy(list<Satellite*>& satellites);
 };
 
 
 /*************************************************************************
  * Dragon
- * Crew Dragon Spacecraft. Takes people to space (probably shouldn't shoot it down).
+ * Crew Dragon Spacecraft. Takes people to space (probably shouldn't shoot 
+ * it down).
  *************************************************************************/
 class Dragon : public Whole
 {
@@ -112,7 +112,7 @@ public:
       numFragments = 2;
    }
 
-   void draw(ogstream& gout);
+   void draw(ogstream& gout) const;
    void destroy(list<Satellite*>& satellites);
 };
 
@@ -134,7 +134,7 @@ public:
       numFragments = 2;
    }
 
-   void draw(ogstream& gout);
+   void draw(ogstream& gout) const;
    void destroy(list<Satellite*>& satellites);
 };
 
@@ -155,7 +155,7 @@ public:
       radius = 10; // pixels
       numFragments = 0;
    }
-   void draw(ogstream& gout);
+   void draw(ogstream& gout) const;
 
    void updatePosition(double time, double planetRadius, double planetGravity);
 

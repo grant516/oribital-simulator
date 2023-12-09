@@ -1,4 +1,4 @@
-// Grant Shirley, Colby Hale, Bruce Li
+// Grant Shirley, Colby Hale
 
 #include <cassert>      // for ASSERT
 #include <list>        // for LIST

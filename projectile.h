@@ -15,7 +15,7 @@ public:
       position = p;
       velocity = v;
    }
-   void draw(ogstream& gout) { gout.drawProjectile(position); }
+   void draw(ogstream& gout) const { gout.drawProjectile(position); }
    void expire();
 
 private:

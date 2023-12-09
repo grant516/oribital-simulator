@@ -18,16 +18,11 @@ public:
 
    void assign(Velocity velocity) {}
 
-   virtual double getDx() { return(dx); }
-   virtual double getDy() { return(dy); }
-
-   virtual double getVelocity(double t) { return(0.0); } // TODO: implement this
-   //Direction getDirection() {} // TODO: implement this
+   virtual double getDx() const { return(dx); }
+   virtual double getDy() const { return(dy); }
 
    virtual void setDx(double xSpeed) { dx = xSpeed; }
    virtual void setDy(double ySpeed) { dy = ySpeed; }
-   //void setSpeed(double speed) {} // TODO: implement this
-   //void setMovementDirection(Direction direction) {} // TODO: implement this
 
    void addDx(double dxAdded) { dx += dxAdded; }
    void addDy(double dyAdded) { dy += dyAdded; }

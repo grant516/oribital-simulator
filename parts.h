@@ -25,7 +25,7 @@ public:
       movementDirection = dir; 
       radius = 4; 
    };
-   void draw(ogstream& gout) { gout.drawStarlinkArray(position, facingDirection.getRadians()); }
+   void draw(ogstream& gout) const { gout.drawStarlinkArray(position, facingDirection.getRadians()); }
 };
 
 class StarlinkBody : public Part
@@ -39,7 +39,7 @@ public:
       movementDirection = dir; 
       radius = 2; 
    };
-   void draw(ogstream& gout) { gout.drawStarlinkBody(position, facingDirection.getRadians()); }
+   void draw(ogstream& gout) const { gout.drawStarlinkBody(position, facingDirection.getRadians()); }
 };
 
 class CrewDragonRight : public Part
@@ -53,7 +53,7 @@ public:
       movementDirection = dir; 
       radius = 6; 
    };
-   void draw(ogstream& gout) { gout.drawCrewDragonRight(position, facingDirection.getRadians()); }
+   void draw(ogstream& gout) const { gout.drawCrewDragonRight(position, facingDirection.getRadians()); }
 };
 
 class CrewDragonLeft : public Part
@@ -67,7 +67,7 @@ public:
       movementDirection = dir; 
       radius = 6; 
    };
-   void draw(ogstream& gout) { gout.drawCrewDragonLeft(position, facingDirection.getRadians()); }
+   void draw(ogstream& gout) const { gout.drawCrewDragonLeft(position, facingDirection.getRadians()); }
 };
 
 class CrewDragonCenter : public Part
@@ -81,7 +81,7 @@ public:
       movementDirection = dir; 
       radius = 6; 
    };
-   void draw(ogstream& gout) { gout.drawCrewDragonCenter(position, facingDirection.getRadians()); }
+   void draw(ogstream& gout) const { gout.drawCrewDragonCenter(position, facingDirection.getRadians()); }
 };
 
 class HubbleRight : public Part
@@ -95,7 +95,7 @@ public:
       movementDirection = dir; 
       radius = 8; 
    };
-   void draw(ogstream& gout) { gout.drawHubbleRight(position, facingDirection.getRadians()); }
+   void draw(ogstream& gout) const { gout.drawHubbleRight(position, facingDirection.getRadians()); }
 };
 
 class HubbleLeft : public Part
@@ -109,7 +109,7 @@ public:
       movementDirection = dir; 
       radius = 8; 
    };
-   void draw(ogstream& gout) { gout.drawHubbleLeft(position, facingDirection.getRadians()); }
+   void draw(ogstream& gout) const { gout.drawHubbleLeft(position, facingDirection.getRadians()); }
 };
 
 class HubbleComputer : public Part
@@ -123,7 +123,7 @@ public:
       movementDirection = dir; 
       radius = 7; 
    };
-   void draw(ogstream& gout) { gout.drawHubbleComputer(position, facingDirection.getRadians()); }
+   void draw(ogstream& gout) const { gout.drawHubbleComputer(position, facingDirection.getRadians()); }
 };
 
 class HubbleTelescope : public Part
@@ -137,7 +137,7 @@ public:
       movementDirection = dir; 
       radius = 10; 
    };
-   void draw(ogstream& gout) { gout.drawHubbleTelescope(position, facingDirection.getRadians()); }
+   void draw(ogstream& gout) const { gout.drawHubbleTelescope(position, facingDirection.getRadians()); }
 };
 
 class GPSRight : public Part
@@ -151,7 +151,7 @@ public:
       movementDirection = dir; 
       radius = 8; 
    };
-   void draw(ogstream& gout) { gout.drawGPSRight(position, facingDirection.getRadians()); }
+   void draw(ogstream& gout) const { gout.drawGPSRight(position, facingDirection.getRadians()); }
 };
 
 class GPSLeft : public Part
@@ -165,7 +165,7 @@ public:
       movementDirection = dir; 
       radius = 8; 
    };
-   void draw(ogstream& gout) { gout.drawGPSLeft(position, facingDirection.getRadians()); }
+   void draw(ogstream& gout) const { gout.drawGPSLeft(position, facingDirection.getRadians()); }
 };
 
 class GPSCenter : public Part
@@ -179,5 +179,5 @@ public:
       movementDirection = dir;
       radius = 7;
    };
-   void draw(ogstream& gout) { gout.drawGPSCenter(position, facingDirection.getRadians()); }
+   void draw(ogstream& gout) const { gout.drawGPSCenter(position, facingDirection.getRadians()); }
 };

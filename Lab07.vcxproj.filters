@@ -39,9 +39,6 @@
     <ClCompile Include="acceleration.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="testSatellite.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="satellite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -84,9 +81,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="acceleration.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="testSatellite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="satellite.h">

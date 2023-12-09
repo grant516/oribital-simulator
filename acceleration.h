@@ -9,15 +9,14 @@ private:
 
 public:
    Acceleration() { ddx = 0; ddy = 0; }
-   void assign(Velocity velocity) {}
-   Velocity getVelocity(double time) {}
-   double getDDx() { return ddx; }
-   double getDDy() { return ddy; }
+   double getDDx() const { return ddx; }
+   double getDDy() const { return ddy; }
    void setDDx(double accelX) { ddx = accelX; }
    void setDDy(double accelY) { ddy = accelY; }
 
    void hrzCompAccel(double a, double angle);
    void vertCompAccel(double a, double angle);
+
    /*
    * Gravity Equation
    * gh = magnitude of acceleration due to gravity at an altitude (h)

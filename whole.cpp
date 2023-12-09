@@ -1,44 +1,15 @@
 #include "whole.h"
 
-void Whole::destroy(list<Satellite*>& satellites)
-{
-   /*
-   
-   // create fragment for numFragments
-   for (int i = 0; i < numFragments; i++)
-   {
-      // create a fragment
-      Fragment* f = new Fragment(position, movementDirection, velocity);
-
-      // add to list
-      satellites.emplace_back(*f);
-   }
-   */
-}
-
-/*
-* Whole::offsetPosition
-* a
-*/
-Position Whole::offsetPosition(Position pos)
-{
-   // Set x and y 5 pixels away randomly
-   pos.setPixelsX(pos.getPixelsX() + random(-25, 25));
-   pos.setPixelsY(pos.getPixelsY() + random(-25, 25));
-
-   return pos;
-}
 
 /*
 * Whole::offsetDirection
 * Adds a random angle between -90 and 90 degrees to the movement direction
 */
-Direction Whole::offsetDirection(Direction dir)
+Direction Whole::offsetDirection()
 {
    Direction newAngle;
-   newAngle.setDegrees(random(-90, 90));
-   newAngle.setRadians(newAngle.getRadians() + movementDirection.getRadians());
-
+   newAngle.setDxDy(velocity.getDx(), velocity.getDy());
+   newAngle.setRadians(newAngle.getRadians() + random(-PI / 2, PI / 2));
    return newAngle;
 }
 
@@ -46,10 +17,15 @@ Direction Whole::offsetDirection(Direction dir)
 * Whole::boostVelocity
 * Add between 5000 and 9000 m/s to the velocity
 */
-Velocity Whole::boostVelocity(Velocity vel)
+Velocity Whole::boostVelocity(Velocity vel, Direction dir)
 {
-   vel.hrzCompVel(movementDirection.getRadians(), random(5000, 9000));
-   vel.vertCompVel(movementDirection.getRadians(), random(5000, 9000));
+   //Direction mDirection;
+   Velocity vel2;
+   //mDirection.setDxDy(vel.getDx(), vel.getDy());
+   vel2.hrzCompVel(dir.getRadians(), random(3000, 6000));
+   vel2.vertCompVel(dir.getRadians(), random(3000, 6000));
+
+   vel.addVelocity(vel2);
    return vel;
 }
 
@@ -58,13 +34,13 @@ Velocity Whole::boostVelocity(Velocity vel)
 
 void Sputnik::destroy(list<Satellite*>& satellites)
 {
-   // create all the gps parts
+   // create all the sputnik parts
    Direction myDirection;
    for (int i = 0; i < numFragments; i++)
    {
-      myDirection = offsetDirection(movementDirection);
-      double degrees = movementDirection.getDegrees();
-      satellites.emplace_back(new Fragment(getLaunchPosition(25, myDirection), boostVelocity(velocity), myDirection));
+      myDirection = offsetDirection();
+      satellites.emplace_back(new Fragment(getLaunchPosition(25, myDirection), 
+         boostVelocity(velocity, myDirection), myDirection));
    }
 
 }
@@ -78,7 +54,7 @@ void Sputnik::updateFacingDirection()
 * Sputnik::draw
 * Uses the drawSputnik function from uiDraw.
 */
-void Sputnik::draw(ogstream& gout)
+void Sputnik::draw(ogstream& gout) const
 {
    gout.drawSputnik(position, facingDirection.getRadians());
 }
@@ -95,19 +71,23 @@ void GPS::updateFacingDirection()
 void GPS::destroy(list<Satellite*>& satellites)
 {
    // create all the gps parts
-   Direction myDirection = offsetDirection(movementDirection);
-   satellites.emplace_back(new GPSCenter(getLaunchPosition(25, myDirection), boostVelocity(velocity), myDirection));
+   Direction myDirection = offsetDirection();
+   satellites.emplace_back(new GPSCenter(getLaunchPosition(25, myDirection), 
+      boostVelocity(velocity, myDirection), myDirection));
 
-   myDirection = offsetDirection(movementDirection);
-   satellites.emplace_back(new GPSLeft(getLaunchPosition(25, myDirection), boostVelocity(velocity), myDirection));
+   myDirection = offsetDirection();
+   satellites.emplace_back(new GPSLeft(getLaunchPosition(25, myDirection), 
+      boostVelocity(velocity, myDirection), myDirection));
 
-   myDirection = offsetDirection(movementDirection);
-   satellites.emplace_back(new GPSRight(getLaunchPosition(25, myDirection), boostVelocity(velocity), myDirection));
+   myDirection = offsetDirection();
+   satellites.emplace_back(new GPSRight(getLaunchPosition(25, myDirection), 
+      boostVelocity(velocity, myDirection), myDirection));
 
    for (int i = 0; i < numFragments; i++)
    {
-      myDirection = offsetDirection(movementDirection);
-      satellites.emplace_back(new Fragment(getLaunchPosition(25, myDirection), boostVelocity(velocity), myDirection));
+      myDirection = offsetDirection();
+      satellites.emplace_back(new Fragment(getLaunchPosition(25, myDirection), 
+         boostVelocity(velocity, myDirection), myDirection));
    }
 
 }
@@ -117,7 +97,7 @@ void GPS::destroy(list<Satellite*>& satellites)
 * GPS::draw
 * Uses the drawGPS function from uiDraw.
 */
-void GPS::draw(ogstream& gout)
+void GPS::draw(ogstream& gout) const
 {
    gout.drawGPS(position, facingDirection.getRadians());
 }
@@ -127,23 +107,28 @@ void GPS::draw(ogstream& gout)
 
 void Hubble::destroy(list<Satellite*>& satellites)
 {
-   // create all the gps parts
-   Direction myDirection = offsetDirection(movementDirection);
-   satellites.emplace_back(new HubbleComputer(getLaunchPosition(25, myDirection), boostVelocity(velocity), myDirection));
+   // create all the hubble parts
+   Direction myDirection = offsetDirection();
+   satellites.emplace_back(new HubbleComputer(getLaunchPosition(25, myDirection), 
+      boostVelocity(velocity, myDirection), myDirection));
 
-   myDirection = offsetDirection(movementDirection);
-   satellites.emplace_back(new HubbleTelescope(getLaunchPosition(25, myDirection), boostVelocity(velocity), myDirection));
+   myDirection = offsetDirection();
+   satellites.emplace_back(new HubbleTelescope(getLaunchPosition(25, myDirection), 
+      boostVelocity(velocity, myDirection), myDirection));
 
-   myDirection = offsetDirection(movementDirection);
-   satellites.emplace_back(new HubbleLeft(getLaunchPosition(25, myDirection), boostVelocity(velocity), myDirection));
+   myDirection = offsetDirection();
+   satellites.emplace_back(new HubbleLeft(getLaunchPosition(25, myDirection), 
+      boostVelocity(velocity, myDirection), myDirection));
 
-   myDirection = offsetDirection(movementDirection);
-   satellites.emplace_back(new HubbleRight(getLaunchPosition(25, myDirection), boostVelocity(velocity), myDirection));
+   myDirection = offsetDirection();
+   satellites.emplace_back(new HubbleRight(getLaunchPosition(25, myDirection), 
+      boostVelocity(velocity, myDirection), myDirection));
 
    for (int i = 0; i < numFragments; i++)
    {
-      myDirection = offsetDirection(movementDirection);
-      satellites.emplace_back(new Fragment(getLaunchPosition(25, myDirection), boostVelocity(velocity), myDirection));
+      myDirection = offsetDirection();
+      satellites.emplace_back(new Fragment(getLaunchPosition(25, myDirection), 
+         boostVelocity(velocity, myDirection), myDirection));
    }
 
 }
@@ -158,7 +143,7 @@ void Hubble::updateFacingDirection()
 * Hubble::draw
 * Uses the drawHubble function from uiDraw.
 */
-void Hubble::draw(ogstream& gout)
+void Hubble::draw(ogstream& gout) const
 {
    gout.drawHubble(position, facingDirection.getRadians());
 }
@@ -168,20 +153,24 @@ void Hubble::draw(ogstream& gout)
 
 void Dragon::destroy(list<Satellite*>& satellites)
 {
-   // create all the gps parts
-   Direction myDirection = offsetDirection(movementDirection);
-   satellites.emplace_back(new CrewDragonCenter(getLaunchPosition(25, myDirection), boostVelocity(velocity), myDirection));
+   // create all the dragon parts
+   Direction myDirection = offsetDirection();
+   satellites.emplace_back(new CrewDragonCenter(getLaunchPosition(25, myDirection), 
+      boostVelocity(velocity, myDirection), myDirection));
 
-   myDirection = offsetDirection(movementDirection);
-   satellites.emplace_back(new CrewDragonLeft(getLaunchPosition(25, myDirection), boostVelocity(velocity), myDirection));
+   myDirection = offsetDirection();
+   satellites.emplace_back(new CrewDragonLeft(getLaunchPosition(25, myDirection), 
+      boostVelocity(velocity, myDirection), myDirection));
 
-   myDirection = offsetDirection(movementDirection);
-   satellites.emplace_back(new CrewDragonRight(getLaunchPosition(25, myDirection), boostVelocity(velocity), myDirection));
+   myDirection = offsetDirection();
+   satellites.emplace_back(new CrewDragonRight(getLaunchPosition(25, myDirection), 
+      boostVelocity(velocity, myDirection), myDirection));
 
    for (int i = 0; i < numFragments; i++)
    {
-      myDirection = offsetDirection(movementDirection);
-      satellites.emplace_back(new Fragment(getLaunchPosition(25, myDirection), boostVelocity(velocity), myDirection));
+      myDirection = offsetDirection();
+      satellites.emplace_back(new Fragment(getLaunchPosition(25, myDirection), 
+         boostVelocity(velocity, myDirection), myDirection));
    }
 
 }
@@ -190,7 +179,7 @@ void Dragon::destroy(list<Satellite*>& satellites)
 * Dragon::draw
 * Uses the drawCrewDragon function from uiDraw.
 */
-void Dragon::draw(ogstream& gout)
+void Dragon::draw(ogstream& gout) const
 {
    gout.drawCrewDragon(position, facingDirection.getRadians());
 }
@@ -200,17 +189,21 @@ void Dragon::draw(ogstream& gout)
 
 void Starlink::destroy(list<Satellite*>& satellites)
 {
-   // create all the gps parts
-   Direction myDirection = offsetDirection(movementDirection);
-   satellites.emplace_back(new StarlinkArray(getLaunchPosition(25, myDirection), boostVelocity(velocity), myDirection));
+   // create all the Starlink parts
+   Direction myDirection = offsetDirection();
+   satellites.emplace_back(new StarlinkArray(
+      getLaunchPosition(25, myDirection), 
+      boostVelocity(velocity, myDirection), myDirection));
 
-   myDirection = offsetDirection(movementDirection);
-   satellites.emplace_back(new StarlinkBody(getLaunchPosition(25, myDirection), boostVelocity(velocity), myDirection));
+   myDirection = offsetDirection();
+   satellites.emplace_back(new StarlinkBody(getLaunchPosition(25, myDirection),
+      boostVelocity(velocity, myDirection), myDirection));
 
    for (int i = 0; i < numFragments; i++)
    {
-      myDirection = offsetDirection(movementDirection);
-      satellites.emplace_back(new Fragment(getLaunchPosition(25, myDirection), boostVelocity(velocity), myDirection));
+      myDirection = offsetDirection();
+      satellites.emplace_back(new Fragment(getLaunchPosition(25, myDirection), 
+         boostVelocity(velocity, myDirection), myDirection));
    }
 
 }
@@ -219,7 +212,7 @@ void Starlink::destroy(list<Satellite*>& satellites)
 * Starlink::draw
 * Uses the drawStarlink function from uiDraw.
 */
-void Starlink::draw(ogstream& gout)
+void Starlink::draw(ogstream& gout) const
 {
    gout.drawStarlink(position, facingDirection.getRadians());
 }
@@ -252,7 +245,7 @@ void Ship::fireProjectile(list<Satellite*>& satellites)
 * Uses the drawShip function from uiDraw. 
 * Also uses the thrusterOn variable so it knows when to draw the thruster.
 */
-void Ship::draw(ogstream& gout)
+void Ship::draw(ogstream& gout) const
 {
    gout.drawShip(position, facingDirection.getRadians(), thrusterOn);
 }
@@ -261,7 +254,8 @@ void Ship::draw(ogstream& gout)
 * Ship::updatePosition
 * Calculates positional movement of the ship.
 */
-void Ship::updatePosition(double time, double planetRadius, double planetGravity)
+void Ship::updatePosition(double time, double planetRadius, 
+   double planetGravity)
 {
    // calculate earth's gravity pull for both ddx and ddy
    // get the height away from the earth
@@ -270,7 +264,8 @@ void Ship::updatePosition(double time, double planetRadius, double planetGravity
 
    // gravity equation
    // Use Acceleration
-   double currentGravity = acceleration.gravityEquation(planetRadius, height, planetGravity);
+   double currentGravity = acceleration.gravityEquation(planetRadius, 
+      height, planetGravity);
 
    // Get radians angle
    // Use Direction

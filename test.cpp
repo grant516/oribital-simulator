@@ -9,7 +9,6 @@
 
 #include "test.h"
 #include "testPosition.h"
-#include "testSatellite.h"
 #include "testVelocity.h"
 #include <cassert>
 
@@ -21,7 +20,6 @@
 void testRunner()
 {
    TestPosition().run();
-   TestSatellite().run();
    TestVelocity().run();
    cout << "All test passed!" << endl;
 }
