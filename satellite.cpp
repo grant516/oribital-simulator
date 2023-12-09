@@ -15,14 +15,16 @@ void Satellite::kill()
 * it needs to know the time, radius or the planet it orbits, and the gravity
 * of the planet it orbits as well.
 */
-void Satellite::updatePosition(double time, double planetRadius, double planetGravity)
+void Satellite::updatePosition(double time, double planetRadius, 
+   double planetGravity)
 {
    // get the height away from the earth
    double height = getHtAbovePlanet(planetRadius);
 
    // gravity equation
    // Use Acceleration
-   double currentGravity = acceleration.gravityEquation(planetRadius, height, planetGravity);
+   double currentGravity = acceleration.gravityEquation(planetRadius, 
+      height, planetGravity);
 
    // Get radians angle
    double rad = dirGravityPull(0.0, 0.0) + PI;
@@ -46,7 +48,7 @@ void Satellite::updatePosition(double time, double planetRadius, double planetGr
 */
 void Satellite::updateMovementDirection()
 {
-   movementDirection.setRadians(dirGravityPull(0.0, 0.0) + PI / 2); // Face the earth
+   movementDirection.setRadians(dirGravityPull(0.0, 0.0) + PI / 2); 
 }
 
 
@@ -56,8 +58,10 @@ void Satellite::updateMovementDirection()
 */
 Position Satellite::getLaunchPosition(int distance, Direction difference)
 {
-   double x = position.getPixelsX() + distance * sin(facingDirection.getRadians() + difference.getRadians());
-   double y = position.getPixelsY() + distance * cos(facingDirection.getRadians() + difference.getRadians());
+   double x = position.getPixelsX() + distance * 
+      sin(facingDirection.getRadians() + difference.getRadians());
+   double y = position.getPixelsY() + distance * 
+      cos(facingDirection.getRadians() + difference.getRadians());
    launchPosition.setPixelsX(x);
    launchPosition.setPixelsY(y);
 

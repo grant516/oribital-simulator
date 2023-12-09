@@ -41,7 +41,7 @@ void Sputnik::destroy(list<Satellite*>& satellites)
    for (int i = 0; i < numFragments; i++)
    {
       myDirection = offsetDirection();
-      satellites.emplace_back(new Fragment(getLaunchPosition(25, myDirection), 
+      satellites.emplace_back(new Fragment(getLaunchPosition(25, myDirection),
          boostVelocity(velocity, myDirection), myDirection));
    }
 
@@ -122,25 +122,30 @@ void Hubble::destroy(list<Satellite*>& satellites)
 {
    // create all the hubble parts
    Direction myDirection = offsetDirection();
-   satellites.emplace_back(new HubbleComputer(getLaunchPosition(25, myDirection), 
+   satellites.emplace_back(
+      new HubbleComputer(getLaunchPosition(25, myDirection), 
+         boostVelocity(velocity, myDirection), myDirection));
+
+   myDirection = offsetDirection();
+   satellites.emplace_back(
+      new HubbleTelescope(getLaunchPosition(25, myDirection), 
       boostVelocity(velocity, myDirection), myDirection));
 
    myDirection = offsetDirection();
-   satellites.emplace_back(new HubbleTelescope(getLaunchPosition(25, myDirection), 
+   satellites.emplace_back(
+      new HubbleLeft(getLaunchPosition(25, myDirection), 
       boostVelocity(velocity, myDirection), myDirection));
 
    myDirection = offsetDirection();
-   satellites.emplace_back(new HubbleLeft(getLaunchPosition(25, myDirection), 
-      boostVelocity(velocity, myDirection), myDirection));
-
-   myDirection = offsetDirection();
-   satellites.emplace_back(new HubbleRight(getLaunchPosition(25, myDirection), 
+   satellites.emplace_back(
+      new HubbleRight(getLaunchPosition(25, myDirection), 
       boostVelocity(velocity, myDirection), myDirection));
 
    for (int i = 0; i < numFragments; i++)
    {
       myDirection = offsetDirection();
-      satellites.emplace_back(new Fragment(getLaunchPosition(25, myDirection), 
+      satellites.emplace_back(
+         new Fragment(getLaunchPosition(25, myDirection), 
          boostVelocity(velocity, myDirection), myDirection));
    }
 
@@ -174,21 +179,25 @@ void Dragon::destroy(list<Satellite*>& satellites)
 {
    // create all the dragon parts
    Direction myDirection = offsetDirection();
-   satellites.emplace_back(new CrewDragonCenter(getLaunchPosition(25, myDirection), 
+   satellites.emplace_back(
+      new CrewDragonCenter(getLaunchPosition(25, myDirection), 
       boostVelocity(velocity, myDirection), myDirection));
 
    myDirection = offsetDirection();
-   satellites.emplace_back(new CrewDragonLeft(getLaunchPosition(25, myDirection), 
+   satellites.emplace_back(
+      new CrewDragonLeft(getLaunchPosition(25, myDirection), 
       boostVelocity(velocity, myDirection), myDirection));
 
    myDirection = offsetDirection();
-   satellites.emplace_back(new CrewDragonRight(getLaunchPosition(25, myDirection), 
+   satellites.emplace_back(
+      new CrewDragonRight(getLaunchPosition(25, myDirection), 
       boostVelocity(velocity, myDirection), myDirection));
 
    for (int i = 0; i < numFragments; i++)
    {
       myDirection = offsetDirection();
-      satellites.emplace_back(new Fragment(getLaunchPosition(25, myDirection), 
+      satellites.emplace_back(
+         new Fragment(getLaunchPosition(25, myDirection), 
          boostVelocity(velocity, myDirection), myDirection));
    }
 

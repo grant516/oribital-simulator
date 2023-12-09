@@ -42,9 +42,6 @@
     <ClCompile Include="satellite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="direction.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="star.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
