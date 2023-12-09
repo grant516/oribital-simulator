@@ -27,17 +27,28 @@ public:
    Sim(Position ptUpperRight) :
       ptUpperRight(ptUpperRight),
   
-      sputnik(Position(-36515095.13, 21082000.0), Direction(), Velocity(2050.0, 2684.68)),
-      gps0(Position(0.0, 26560000.0), Direction(), Velocity(-3880.0, 0.0)),
-      gps1(Position(23001634.72, 13280000.0), Direction(), Velocity(-1940.00, 3360.18)),
-      gps2(Position(23001634.72, -13280000.0), Direction(), Velocity(1940.00, 3360.18)),
-      gps3(Position(0.0, -26560000.0), Direction(), Velocity(3880.0, 0.0)),
-      gps4(Position(-23001634.72, -13280000.0), Direction(), Velocity(1940.00, -3360.18)),
-      gps5(Position(-23001634.72, 13280000.0), Direction(), Velocity(-1940.00, -3360.18)),
-      hubble(Position(0.0, -42164000.0), Direction(), Velocity(3100.0, 0.0)),
-      dragon(Position(0.0, 8000000.0), Direction(), Velocity(-7900.0, 0.0)),
-      starlink(Position(0.0, -13020000.0), Direction(), Velocity(5800.0, 0.0)),
-      ship(Position(-45000000.0, 45000000.0), Direction(), Velocity(0.0, -2000.0)) 
+      sputnik(Position(-36515095.13, 21082000.0), 
+         Direction(), Velocity(2050.0, 2684.68)),
+      gps0(Position(0.0, 26560000.0), Direction(), 
+         Velocity(-3880.0, 0.0)),
+      gps1(Position(23001634.72, 13280000.0), 
+         Direction(), Velocity(-1940.00, 3360.18)),
+      gps2(Position(23001634.72, -13280000.0), 
+         Direction(), Velocity(1940.00, 3360.18)),
+      gps3(Position(0.0, -26560000.0), Direction(), 
+         Velocity(3880.0, 0.0)),
+      gps4(Position(-23001634.72, -13280000.0), 
+         Direction(), Velocity(1940.00, -3360.18)),
+      gps5(Position(-23001634.72, 13280000.0), 
+         Direction(), Velocity(-1940.00, -3360.18)),
+      hubble(Position(0.0, -42164000.0), 
+         Direction(), Velocity(3100.0, 0.0)),
+      dragon(Position(0.0, 8000000.0), 
+         Direction(), Velocity(-7900.0, 0.0)),
+      starlink(Position(0.0, -13020000.0), 
+         Direction(), Velocity(5800.0, 0.0)),
+      ship(Position(-45000000.0, 45000000.0), 
+         Direction(), Velocity(0.0, -2000.0)) 
 
    {
       for (int i = 0; i < STARSNUM; i++)
@@ -144,7 +155,8 @@ void callBack(const Interface* pUI, void* p)
 
    //Physics
 
-   for (auto sat = pSim->satellites.begin(); sat != pSim->satellites.end(); ++sat)
+   for (auto sat = pSim->satellites.begin(); 
+      sat != pSim->satellites.end(); ++sat)
    {
       (*sat)->updatePosition(pSim->time, pSim->earth.getRadiusMeters(),
          pSim->earth.getGravity());
@@ -154,7 +166,8 @@ void callBack(const Interface* pUI, void* p)
    }
 
    // check for collisions
-   for (auto sat1 = pSim->satellites.begin(); sat1 != pSim->satellites.end(); ++sat1)
+   for (auto sat1 = pSim->satellites.begin(); 
+      sat1 != pSim->satellites.end(); ++sat1)
    {
       sat1;
       Position sat1Pos = (*sat1)->getPosition();
@@ -166,7 +179,8 @@ void callBack(const Interface* pUI, void* p)
             (earthPos.getPixelsY() - sat1Pos.getPixelsY()))
       );
 
-      for (auto sat2 = pSim->satellites.begin(); sat2 != pSim->satellites.end(); ++sat2)
+      for (auto sat2 = pSim->satellites.begin(); 
+         sat2 != pSim->satellites.end(); ++sat2)
       {
          if (sat1 != sat2 && (!(*sat1)->isDead() && !(*sat2)->isDead()))
          {

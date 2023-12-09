@@ -141,7 +141,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="acceleration.cpp" />
-    <ClCompile Include="direction.cpp" />
     <ClCompile Include="projectile.cpp" />
     <ClCompile Include="satellite.cpp" />
     <ClCompile Include="sim.cpp" />

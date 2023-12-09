@@ -18,6 +18,7 @@ public:
       radius = 0.5;
    };
 
-   void draw(ogstream& gout) const { gout.drawFragment(position, facingDirection.getRadians()); }
+   void draw(ogstream& gout) const { gout.drawFragment(position, 
+      facingDirection.getRadians()); }
    void expire();
 };
