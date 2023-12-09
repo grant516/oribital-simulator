@@ -44,9 +44,6 @@ public:
       {
          stars[i].reset(random(-500, 500), random(-500, 500));
       }
-
-      angleShip = 0.0;
-      phaseStar = 0;
       
       time = (hoursPerDay * minutesPerHour) / framesPerSecond;
    }
@@ -69,15 +66,8 @@ public:
    Starlink starlink;
    Ship ship;
 
-   unsigned char phaseStar;
-
-   double const planetRadius = 6378000;
-   double angleShip;
-
-   // old stuff ends here
    Earth earth;
    Star stars[STARSNUM];
-   //Star star;
 
    // List of satellites
    list<Satellite*> satellites = 
@@ -111,7 +101,7 @@ void callBack(const Interface* pUI, void* p)
    Sim* pSim = (Sim*)p;
 
    //
-   // perform all the game logic
+   // INPUT
    //
    if (pSim->ship.isDead() == false)
    {
@@ -141,8 +131,9 @@ void callBack(const Interface* pUI, void* p)
       }
    }
 
-
-   //Physics
+   //
+   // PHYSICS
+   //
 
    for (auto sat = pSim->satellites.begin(); sat != pSim->satellites.end(); ++sat)
    {
@@ -153,7 +144,9 @@ void callBack(const Interface* pUI, void* p)
       (*sat)->expire();
    }
 
-   // check for collisions
+   //
+   // COLLISIONS
+   //
    for (auto sat1 = pSim->satellites.begin(); sat1 != pSim->satellites.end(); ++sat1)
    {
       sat1;
@@ -207,11 +200,12 @@ void callBack(const Interface* pUI, void* p)
          ++sat;
    }
 
-   // rotate the earth
+   // Rotate the Earth
    pSim->earth.rotate();
 
+
    //
-   // draw everything
+   // DRAW
    //
 
    Position pt;
@@ -220,11 +214,11 @@ void callBack(const Interface* pUI, void* p)
    for (int i = 0; i < STARSNUM; i++)
       pSim->stars[i].draw(gout);
 
-   // draw satellites
+   // Draw satellites
    for (auto sat : pSim->satellites)
       sat->draw(gout);
 
-   // draw the earth
+   // Draw the earth
    pSim->earth.draw(gout);
 }
 

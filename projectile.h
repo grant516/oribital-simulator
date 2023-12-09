@@ -17,8 +17,5 @@ public:
    }
    void draw(ogstream& gout) const { gout.drawProjectile(position); }
    void expire();
-
-private:
-   void addFivePixels();
 };
 

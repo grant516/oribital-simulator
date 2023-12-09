@@ -32,9 +32,11 @@ Velocity Whole::boostVelocity(Velocity vel, Direction dir)
 
 // SPUTNIK FUNCTIONS
 
+/*
+* Creates the sputnik parts when the sputnik is destroyed
+*/
 void Sputnik::destroy(list<Satellite*>& satellites)
 {
-   // create all the sputnik parts
    Direction myDirection;
    for (int i = 0; i < numFragments; i++)
    {
@@ -45,6 +47,9 @@ void Sputnik::destroy(list<Satellite*>& satellites)
 
 }
 
+/*
+* Rotates the sputnik visually
+*/
 void Sputnik::updateFacingDirection()
 {
    facingDirection.rotate(0.05);
@@ -62,12 +67,17 @@ void Sputnik::draw(ogstream& gout) const
 
 // GPS FUNCTIONS
 
-
+/*
+* Rotates the gps visually
+*/
 void GPS::updateFacingDirection()
 {
    facingDirection = movementDirection;
 }
 
+/*
+* Creates the gps parts when the gps is destroyed
+*/
 void GPS::destroy(list<Satellite*>& satellites)
 {
    // create all the gps parts
@@ -105,6 +115,9 @@ void GPS::draw(ogstream& gout) const
 
 // HUBBLE FUNCTIONS
 
+/*
+* Creates the hubble parts when the hubble is destroyed
+*/
 void Hubble::destroy(list<Satellite*>& satellites)
 {
    // create all the hubble parts
@@ -133,6 +146,9 @@ void Hubble::destroy(list<Satellite*>& satellites)
 
 }
 
+/*
+* Rotates the hubble visually
+*/
 void Hubble::updateFacingDirection()
 {
    // Left empty, since it is overriding the function in the base class
@@ -151,6 +167,9 @@ void Hubble::draw(ogstream& gout) const
 
 // DRAGON FUNCTIONS
 
+/*
+* Creates the dragon parts when the dragon is destroyed
+*/
 void Dragon::destroy(list<Satellite*>& satellites)
 {
    // create all the dragon parts
@@ -187,6 +206,9 @@ void Dragon::draw(ogstream& gout) const
 
 // STARLINK FUNCTIONS
 
+/*
+* Creates the starlink parts when the starlink is destroyed
+*/
 void Starlink::destroy(list<Satellite*>& satellites)
 {
    // create all the Starlink parts
@@ -219,7 +241,6 @@ void Starlink::draw(ogstream& gout) const
 
 
 // SHIP (DREAMCHASER) FUNCTIONS
-
 
 /*
 * Ship::fireProjectile

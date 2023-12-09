@@ -14,12 +14,21 @@ double Acceleration::gravityEquation(double r, double h, double gravity) const
    return gh;
 }
 
+/*
+* Horizontal Component of Acceleration
+* a = magnitude of acceleration
+* angle = angle of acceleration
+*/
 void Acceleration::hrzCompAccel(double a, double angle)
 {
    ddx = a * sin(angle);
 }
 
-
+/*
+* Vertical Component of Acceleration
+* a = magnitude of acceleration
+* angle = angle of acceleration
+*/
 void Acceleration::vertCompAccel(double a, double angle)
 {
    ddy = a * cos(angle);

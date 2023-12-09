@@ -17,9 +17,7 @@ void Satellite::kill()
 */
 void Satellite::updatePosition(double time, double planetRadius, double planetGravity)
 {
-   // calculate earth's gravity pull for both ddx and ddy
    // get the height away from the earth
-   // Use Position
    double height = getHtAbovePlanet(planetRadius);
 
    // gravity equation
@@ -27,18 +25,17 @@ void Satellite::updatePosition(double time, double planetRadius, double planetGr
    double currentGravity = acceleration.gravityEquation(planetRadius, height, planetGravity);
 
    // Get radians angle
-   // Use Direction
    double rad = dirGravityPull(0.0, 0.0) + PI;
 
-   // Use Acceleration
+   // Update the movement direction
    acceleration.hrzCompAccel(currentGravity, rad);
    acceleration.vertCompAccel(currentGravity, rad);
 
-   // use Velocity
+   // Update the velocity
    velocity.hrzVelWConstA(acceleration.getDDx(), time);
    velocity.vertVelWConstA(acceleration.getDDy(), time);
 
-   // use Position
+   // Update the position
    hrzDistFormula(time);
    vertDistFormula(time);
 }
@@ -52,6 +49,11 @@ void Satellite::updateMovementDirection()
    movementDirection.setRadians(dirGravityPull(0.0, 0.0) + PI / 2); // Face the earth
 }
 
+
+/*
+* Determines the position of a part or projectile that is launched from the
+* satellite.
+*/
 Position Satellite::getLaunchPosition(int distance, Direction difference)
 {
    double x = position.getPixelsX() + distance * sin(facingDirection.getRadians() + difference.getRadians());
