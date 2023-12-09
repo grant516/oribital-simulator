@@ -217,12 +217,13 @@ void callBack(const Interface* pUI, void* p)
    Position pt;
    ogstream gout(pt);
 
+   for (int i = 0; i < STARSNUM; i++)
+      pSim->stars[i].draw(gout);
+
    // draw satellites
    for (auto sat : pSim->satellites)
       sat->draw(gout);
 
-   for (int i = 0; i < STARSNUM; i++)
-      pSim->stars[i].draw(gout);
    // draw the earth
    pSim->earth.draw(gout);
 }
